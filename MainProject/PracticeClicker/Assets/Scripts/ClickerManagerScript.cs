@@ -9,12 +9,14 @@ public class ClickerManagerScript : MonoBehaviour
     [SerializeField] private string _changeMoneytext;
     [SerializeField] private GameObject _cargoSpawn;
     [SerializeField] private GameObject _cargo;
+    [SerializeField] private float _clickCooldown;
 
 
     private int _money = 0;
     private Camera _mainCamera;
     private Ray _ray;
     private RaycastHit _hit;
+    private bool _isClickCooldown;
 
     void Start()
     {
@@ -23,7 +25,7 @@ public class ClickerManagerScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!_isClickCooldown && Input.GetMouseButtonDown(0))
         {
             _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -32,9 +34,17 @@ public class ClickerManagerScript : MonoBehaviour
                 if (_hit.transform.tag == "ObjectForClick")
                 {
                     Instantiate(_cargo, _cargoSpawn.transform.position, _cargoSpawn.transform.rotation);
+                    StartCoroutine(ClickCooldown());
                 }
             }
         }
+    }
+
+    IEnumerator ClickCooldown()
+    {
+        _isClickCooldown = true;
+        yield return new WaitForSeconds(_clickCooldown);
+        _isClickCooldown = false;
     }
 
     private void OnTriggerEnter(Collider other)
