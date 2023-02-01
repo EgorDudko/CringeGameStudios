@@ -6,8 +6,8 @@ using UnityEngine;
 public class ClickerManagerScript : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _cargoSpawn;
-    [SerializeField] private GameObject _cargo;
+    [SerializeField] private GameObject _itemsSpawn;
+    [SerializeField] private GameObject[] _items;
     [SerializeField] private GameObject _cooldownColoredIndicator;
     [SerializeField] private Material _redIndicator;
     [SerializeField] private Material _greenIndicator;
@@ -44,7 +44,7 @@ public class ClickerManagerScript : MonoBehaviour
                 {
                     if (_hit.transform.tag == "ObjectForClick")
                     {
-                        Instantiate(_cargo, _cargoSpawn.transform.position, _cargoSpawn.transform.rotation);
+                        Instantiate(_items[Random.Range(0,_items.Length)], _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
                         StartCoroutine(ClickCooldown());
                     }
                 }

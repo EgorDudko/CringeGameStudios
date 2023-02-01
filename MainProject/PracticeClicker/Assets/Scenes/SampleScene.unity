@@ -123,6 +123,65 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &29361182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 29361185}
+  - component: {fileID: 29361184}
+  - component: {fileID: 29361183}
+  m_Layer: 0
+  m_Name: FloorCleaner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &29361183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29361182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61d6a78d423571478ba985412a509ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cleaningTime: 3
+--- !u!65 &29361184
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29361182}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 1, z: 20}
+  m_Center: {x: 5, y: 0, z: -4.7}
+--- !u!4 &29361185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29361182}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &84486810
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84486811}
   m_Layer: 0
-  m_Name: CargoSpawner
+  m_Name: ItemsSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1963,7 +2022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137238155}
   m_Layer: 0
-  m_Name: BoxSpawner
+  m_Name: BoxSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2505,8 +2564,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98dfa504c264e94aac40ee2284b5ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cargoSpawn: {fileID: 84486810}
-  _cargo: {fileID: 4511708919752110376, guid: 2871ea764a73b9c4695f4e5427c015b0, type: 3}
+  _itemsSpawn: {fileID: 84486810}
+  _items:
+  - {fileID: 4511708919752110376, guid: 2871ea764a73b9c4695f4e5427c015b0, type: 3}
+  - {fileID: 4385743368945236782, guid: 5a9095d2cb792f9458c748509b37dab7, type: 3}
   _cooldownColoredIndicator: {fileID: 229815298}
   _redIndicator: {fileID: 2100000, guid: de49efcf564bad34c9292f9a2f5dc697, type: 2}
   _greenIndicator: {fileID: 2100000, guid: 35086ffc5eb68cf408b58f00fe6ff0dd, type: 2}
@@ -2938,8 +2999,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610402767}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.002, y: 2.818, z: -5.303}
-  m_LocalScale: {x: 0.7515, y: 0.51334, z: 0.9885064}
+  m_LocalPosition: {x: 5.002, y: 2.666, z: -5.303}
+  m_LocalScale: {x: 0.7515, y: 0.79557866, z: 0.9885064}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3261,7 +3322,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.5
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
