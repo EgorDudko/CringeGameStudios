@@ -135,7 +135,7 @@ GameObject:
   m_Layer: 0
   m_Name: CargoSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -451,7 +451,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97aa27f5d32c9c348ae7682271932f44, type: 2}
+  - {fileID: 2100000, guid: 35086ffc5eb68cf408b58f00fe6ff0dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -926,7 +926,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1965,7 +1965,7 @@ GameObject:
   m_Layer: 0
   m_Name: BoxSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1982,7 +1982,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209123913
 GameObject:
@@ -2486,11 +2486,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1460022727}
   - component: {fileID: 1460022726}
-  - component: {fileID: 1460022728}
   m_Layer: 0
   m_Name: ClickerManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2506,11 +2505,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98dfa504c264e94aac40ee2284b5ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneytext: {fileID: 1672144044}
-  _changeMoneytext: 'Money: <b>'
   _cargoSpawn: {fileID: 84486810}
   _cargo: {fileID: 4511708919752110376, guid: 2871ea764a73b9c4695f4e5427c015b0, type: 3}
+  _cooldownColoredIndicator: {fileID: 229815298}
+  _redIndicator: {fileID: 2100000, guid: de49efcf564bad34c9292f9a2f5dc697, type: 2}
+  _greenIndicator: {fileID: 2100000, guid: 35086ffc5eb68cf408b58f00fe6ff0dd, type: 2}
   _clickCooldown: 0.5
+  _autoclickCheatDetector: 0.06
 --- !u!4 &1460022727
 Transform:
   m_ObjectHideFlags: 0
@@ -2519,26 +2520,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460022725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.591, y: 1.731, z: -5.221}
+  m_LocalPosition: {x: 2.8, y: 2.6, z: -2.7}
   m_LocalScale: {x: 0.09133039, y: 0.7571458, z: 0.7050429}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1460022728
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1460022725}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1514293367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,7 +2867,7 @@ GameObject:
   m_Layer: 0
   m_Name: ClickDetector
   m_TagString: ObjectForClick
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2925,7 +2913,7 @@ GameObject:
   m_Layer: 0
   m_Name: FunnelTrigger
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2984,7 +2972,7 @@ GameObject:
   - component: {fileID: 1619668614}
   - component: {fileID: 1619668613}
   m_Layer: 0
-  m_Name: ConveyorMover (1)
+  m_Name: ConveyorMover2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3128,6 +3116,66 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624251544}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1632020352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632020355}
+  - component: {fileID: 1632020354}
+  - component: {fileID: 1632020353}
+  m_Layer: 0
+  m_Name: BoxEater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1632020353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632020352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0080d2a99b2a2e94eb7810661fa10ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneytext: {fileID: 1672144044}
+  _changeMoneytext: 'Money: <b>'
+--- !u!65 &1632020354
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632020352}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.8, z: 0.7}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1632020355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632020352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.591, y: 1.679, z: -5.221}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1672144042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,7 +3261,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
+  m_fontSize: 40.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

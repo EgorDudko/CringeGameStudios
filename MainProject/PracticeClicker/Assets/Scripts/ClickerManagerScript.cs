@@ -5,60 +5,61 @@ using UnityEngine;
 
 public class ClickerManagerScript : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _moneytext;
-    [SerializeField] private string _changeMoneytext;
+
     [SerializeField] private GameObject _cargoSpawn;
     [SerializeField] private GameObject _cargo;
+    [SerializeField] private GameObject _cooldownColoredIndicator;
+    [SerializeField] private Material _redIndicator;
+    [SerializeField] private Material _greenIndicator;
     [SerializeField] private float _clickCooldown;
+    [SerializeField] private float _autoclickCheatDetector;
 
-
-    private int _money = 0;
     private Camera _mainCamera;
     private Ray _ray;
     private RaycastHit _hit;
     private bool _isClickCooldown;
+    private float _lastClickPastTime;
 
     void Start()
     {
+        _lastClickPastTime = 100;
         _mainCamera = Camera.main;
     }
 
     void Update()
     {
-        if (!_isClickCooldown && Input.GetMouseButtonDown(0))
+        _lastClickPastTime += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0))
         {
-            _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(_ray, out _hit, 100))
+            if (_lastClickPastTime <= _autoclickCheatDetector)
             {
-                if (_hit.transform.tag == "ObjectForClick")
+                Debug.Log("AUTO-CLICK DETECTED!!!!!");
+            }
+
+            if (!_isClickCooldown)
+            {
+                _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(_ray, out _hit, 100))
                 {
-                    Instantiate(_cargo, _cargoSpawn.transform.position, _cargoSpawn.transform.rotation);
-                    StartCoroutine(ClickCooldown());
+                    if (_hit.transform.tag == "ObjectForClick")
+                    {
+                        Instantiate(_cargo, _cargoSpawn.transform.position, _cargoSpawn.transform.rotation);
+                        StartCoroutine(ClickCooldown());
+                    }
                 }
             }
+
+            _lastClickPastTime = 0f;
         }
     }
 
     IEnumerator ClickCooldown()
     {
         _isClickCooldown = true;
+        _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _redIndicator;
         yield return new WaitForSeconds(_clickCooldown);
+        _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _greenIndicator;
         _isClickCooldown = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<BoxCollider>())
-        {
-            Destroy(other.gameObject);
-            GiveMoney();
-        }
-    }
-
-    private void GiveMoney()
-    {
-        _money++;
-        _moneytext.text = _changeMoneytext + _money;
     }
 }
