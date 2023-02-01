@@ -5,6 +5,7 @@ using TMPro;
 
 public class BoxEatingScript : MonoBehaviour
 {
+
     [SerializeField] private TMP_Text _moneytext;
     [SerializeField] private string _changeMoneytext;
 

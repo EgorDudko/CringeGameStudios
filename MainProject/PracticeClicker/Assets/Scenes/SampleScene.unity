@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84486810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.221, y: 5.291, z: -5.29}
+  m_LocalPosition: {x: 1.2, y: 5.3, z: -5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2581,7 +2581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460022725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 2.6, z: -2.7}
+  m_LocalPosition: {x: 2.8, y: 4.896, z: -2.7}
   m_LocalScale: {x: 0.09133039, y: 0.7571458, z: 0.7050429}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3021,6 +3021,7 @@ MonoBehaviour:
   _box: {fileID: 8206844346924928364, guid: 47d9c96962d8d824f943f3c47a39b87a, type: 3}
   _boxSpawner: {fileID: 1137238154}
   _spawnCooldown: 1
+  _isSpawnCooldown: 0
 --- !u!1 &1619668612
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,7 +3192,7 @@ GameObject:
   m_Layer: 0
   m_Name: BoxEater
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3236,6 +3237,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1666537514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666537517}
+  - component: {fileID: 1666537516}
+  - component: {fileID: 1666537515}
+  m_Layer: 0
+  m_Name: ItemDetectorForCooldown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1666537515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666537514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe1f1a93f88c3247b600d9272f94353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _redIndicator: {fileID: 2100000, guid: de49efcf564bad34c9292f9a2f5dc697, type: 2}
+  _greenIndicator: {fileID: 2100000, guid: 35086ffc5eb68cf408b58f00fe6ff0dd, type: 2}
+  _cooldownColoredIndicator: {fileID: 229815298}
+--- !u!65 &1666537516
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666537514}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.67, y: 0.83, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1666537517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666537514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2, y: 5.3, z: -5.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1672144042
 GameObject:
@@ -3322,7 +3384,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 41
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

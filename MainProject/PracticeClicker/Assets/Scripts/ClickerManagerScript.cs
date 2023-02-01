@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ClickerManagerScript : MonoBehaviour
 {
-
     [SerializeField] private GameObject _itemsSpawn;
     [SerializeField] private GameObject[] _items;
     [SerializeField] private GameObject _cooldownColoredIndicator;
@@ -17,7 +16,6 @@ public class ClickerManagerScript : MonoBehaviour
     private Camera _mainCamera;
     private Ray _ray;
     private RaycastHit _hit;
-    private bool _isClickCooldown;
     private float _lastClickPastTime;
 
     void Start()
@@ -36,7 +34,7 @@ public class ClickerManagerScript : MonoBehaviour
                 Debug.Log("AUTO-CLICK DETECTED!!!!!");
             }
 
-            if (!_isClickCooldown)
+            if (!ItemDetectorCoolDown.isCoolDown)
             {
                 _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -45,7 +43,6 @@ public class ClickerManagerScript : MonoBehaviour
                     if (_hit.transform.tag == "ObjectForClick")
                     {
                         Instantiate(_items[Random.Range(0,_items.Length)], _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
-                        StartCoroutine(ClickCooldown());
                     }
                 }
             }
@@ -54,12 +51,4 @@ public class ClickerManagerScript : MonoBehaviour
         }
     }
 
-    IEnumerator ClickCooldown()
-    {
-        _isClickCooldown = true;
-        _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _redIndicator;
-        yield return new WaitForSeconds(_clickCooldown);
-        _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _greenIndicator;
-        _isClickCooldown = false;
-    }
 }
