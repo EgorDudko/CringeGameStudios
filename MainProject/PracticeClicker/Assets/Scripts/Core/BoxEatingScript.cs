@@ -5,11 +5,9 @@ using TMPro;
 
 public class BoxEatingScript : MonoBehaviour
 {
-
+    [SerializeField] private Storage _storage;
     [SerializeField] private TMP_Text _moneytext;
     [SerializeField] private string _changeMoneytext;
-
-    private int _money = 0;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,7 +20,7 @@ public class BoxEatingScript : MonoBehaviour
 
     private void GiveMoney()
     {
-        _money++;
-        _moneytext.text = _changeMoneytext + _money;
+        _storage.money++;
+        _moneytext.text = _changeMoneytext + _storage.money;
     }
 }

@@ -6,7 +6,7 @@ public class FunnelSciprt : MonoBehaviour
 {
     [SerializeField] private GameObject _box;
     [SerializeField] private GameObject _boxSpawner;
-    [SerializeField] private int _spawnCooldown;
+    [SerializeField] private float _spawnCooldown;
     
     private bool _isSpawnCooldown;
 
