@@ -14,4 +14,11 @@ public class ConveyorScript : MonoBehaviour
             other.transform.position = new Vector3(_position.x + _speed* Time.deltaTime, _position.y, _position.z);
         }
     }
+    public void SpeedUpgrade(float speed)
+    {
+        if(_speed < 0)
+            _speed = -speed;
+        else
+            _speed = speed;
+    }
 }

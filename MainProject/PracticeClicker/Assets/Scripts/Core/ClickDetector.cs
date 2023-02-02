@@ -29,10 +29,13 @@ public class ClickDetector : MonoBehaviour
     private TextMeshProUGUI _hintTextMesh;
     private Color _hintColor;
     private Color _hintTextColor;
+    private bool _hintIsCliked;
+    private bool _hintIsAppearing;
 
 
     void Start()
     {
+        _hintIsCliked = false;
         _lastClickPastTime = 100;
         _mainCamera = Camera.main;
         _hintMeshRender = GetComponent<MeshRenderer>();
@@ -43,20 +46,22 @@ public class ClickDetector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_lastClickPastTime > _timeForHint && _hintMeshRender.material.color.a != _hintTransparancy)
-        {
-            _hintColor.a = Mathf.Lerp(_hintColor.a, _hintTransparancy, _lerpSpeed);
-            _hintMeshRender.material.color = _hintColor;
-            _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, _hintTextTransparancy, _lerpSpeed); ;
-            _hintTextMesh.color = _hintTextColor;
-        }
-        else if(_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0)
-        {
-            _hintColor.a = Mathf.Lerp(_hintColor.a, 0, _lerpSpeed*2);
-            _hintMeshRender.material.color = _hintColor;
-            _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, 0, _lerpSpeed*2);
-            _hintTextMesh.color = _hintTextColor;
-        }
+            if (_lastClickPastTime > _timeForHint && _hintMeshRender.material.color.a != _hintTransparancy || _hintIsAppearing && _lastClickPastTime > _timeForHint)
+            {
+                _hintIsAppearing = true;
+                _hintColor.a = Mathf.Lerp(_hintColor.a, _hintTransparancy, _lerpSpeed);
+                _hintMeshRender.material.color = _hintColor;
+                _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, _hintTextTransparancy, _lerpSpeed); ;
+                _hintTextMesh.color = _hintTextColor;
+            }
+            else if (_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0 && _hintIsCliked || !_hintIsAppearing && _lastClickPastTime <= _timeForHint)
+            {
+                _hintIsAppearing = false;
+                _hintColor.a = Mathf.Lerp(_hintColor.a, 0, _lerpSpeed * 2);
+                _hintMeshRender.material.color = _hintColor;
+                _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, 0, _lerpSpeed * 2);
+                _hintTextMesh.color = _hintTextColor;
+            }
     }
     void Update()
     {
@@ -76,14 +81,17 @@ public class ClickDetector : MonoBehaviour
                 {
                     if (_hit.transform.GetComponent<ClickDetector>())
                     {
-                        //_hintColor.a = 0;
-                        //_hintTextColor.a = 0;
-                        //_hintMeshRender.material.color = _hintColor;
-                        //_hintTextMesh.color = _hintTextColor;
+                        _hintIsCliked = true;
                         Instantiate(_items[Random.Range(0, _items.Length)], _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
                     }
+                    else
+                        _hintIsCliked = false;
                 }
+                else
+                    _hintIsCliked = false;
             }
+            else
+                _hintIsCliked = false;
 
             _lastClickPastTime = 0f;
         }
