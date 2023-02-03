@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class ConveyorScript : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private Storage _storage;
+
+    private Rigidbody rb;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<Rigidbody>())
+        if (rb = other.GetComponent<Rigidbody>())
         {
-            Vector3 _position = other.transform.position;
-            other.transform.position = new Vector3(_position.x + _speed* Time.deltaTime, _position.y, _position.z);
+            rb.freezeRotation = true;
+            rb.velocity = transform.right * _storage.conveyorSpeed;
         }
     }
-    public void SpeedUpgrade(float speed)
+    private void OnTriggerEnter(Collider other)
     {
-        if(_speed < 0)
-            _speed = -speed;
-        else
-            _speed = speed;
+        if (rb = other.GetComponent<Rigidbody>())
+        {
+            rb.freezeRotation = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (rb = other.GetComponent<Rigidbody>())
+        {
+            rb.freezeRotation = false;
+        }
     }
 }

@@ -9,8 +9,6 @@ public class UpgradeUI : MonoBehaviour
     [SerializeField] private Button _buttonSpeedUpgrade;
     [SerializeField] private GameObject _UpgradeMenu;
     [SerializeField] private Storage _storage;
-    [SerializeField] private ConveyorScript _conveyorScript1;
-    [SerializeField] private ConveyorScript _conveyorScript2;
     
     private bool _upgradeMenuIsOpened;
     private int _speedLevel;
@@ -19,7 +17,7 @@ public class UpgradeUI : MonoBehaviour
     {
         _upgradeMenuIsOpened = false;
         _buttonUpgradeMenu.onClick.AddListener(ButtonUpgradeMenu);
-        _buttonSpeedUpgrade.onClick.AddListener(ButtonSpeedUpgrade);
+        //_buttonSpeedUpgrade.onClick.AddListener(ButtonSpeedUpgrade);
     }
 
     private void ButtonUpgradeMenu()
@@ -36,14 +34,13 @@ public class UpgradeUI : MonoBehaviour
         }
     }
 
-    private void ButtonSpeedUpgrade()
-    {
-        if(_storage.money >= _storage.speedUpdatesCosts[_speedLevel])
-        {
-            _storage.money -= _storage.speedUpdatesCosts[_speedLevel];
-            _conveyorScript1.SpeedUpgrade(_storage.speedUpdates[_speedLevel]);
-            _conveyorScript2.SpeedUpgrade(_storage.speedUpdates[_speedLevel]);
-            _speedLevel++;
-        }
-    }
+    //private void ButtonSpeedUpgrade()
+    //{
+    //    if(_storage.money >= _storage.speedUpdatesCosts[_speedLevel])
+    //    {
+    //        _storage.money -= _storage.speedUpdatesCosts[_speedLevel];
+    //        _storage.conveyorSpeed = _storage.speedUpdates[_speedLevel];
+    //        _speedLevel++;
+    //    }
+    //}
 }

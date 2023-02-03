@@ -8,7 +8,7 @@ public class ItemDetectorCoolDown : MonoBehaviour
     [SerializeField] private Material _greenIndicator;
     [SerializeField] private GameObject _cooldownColoredIndicator;
 
-    private static bool _isClickCooldown;
+    public bool _isClickCooldown;
     private int _itemsInTrigger;
 
     private void Start()
@@ -31,14 +31,6 @@ public class ItemDetectorCoolDown : MonoBehaviour
         {
             _isClickCooldown = false;
             _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _greenIndicator;
-        }
-    }
-
-    public static bool isCoolDown
-    {
-        get 
-        {
-            return _isClickCooldown;
         }
     }
 }

@@ -20,7 +20,7 @@ public class BoxEatingScript : MonoBehaviour
 
     private void GiveMoney()
     {
-        _storage.money++;
+        _storage.money += _storage.itemsValue;
         _moneytext.text = _changeMoneytext + _storage.money;
     }
 }
