@@ -28,6 +28,10 @@ public class ClickDetector : MonoBehaviour
     [SerializeField] private TMP_Text _speedUpgradeCostText;
     [SerializeField] private TMP_Text _valueUpgradeCostText;
     [SerializeField] private string _changeMoneytext;
+    [Header("---CameraTransitions---")]
+    [SerializeField] private Transform _cabinetCameraPosition;
+    [SerializeField] private Transform _packagingSectionCameraPosition;
+    [SerializeField] private float _TransitionSpeed;
     [Header("---Other Scripts---")]
     [SerializeField] private Storage _storage;
     [SerializeField] private ItemDetectorCoolDown _itemDetectorCoolDown;
@@ -44,6 +48,9 @@ public class ClickDetector : MonoBehaviour
     private bool _hintIsCliked;
     private bool _hintIsAppearing;
     private bool _buffIsWorking;
+    private Coroutine _cabinetTransitionCoroutine;
+    private Coroutine _packagingSectionTransitionCoroutine;
+
 
 
     void Start()
@@ -126,6 +133,27 @@ public class ClickDetector : MonoBehaviour
                     {
                         StartCoroutine(BuffCoroutine());
                     }
+                    else if (_hit.transform.GetComponent<ButtonCabinet>())
+                    {
+                        if(_packagingSectionTransitionCoroutine != null)
+                        {
+                            StopCoroutine(_packagingSectionTransitionCoroutine);
+                        }
+                        _cabinetTransitionCoroutine = StartCoroutine(CabinetTransitionCoroutine());
+                    }
+                    else if (_hit.transform.GetComponent<ButtonExit>())
+                    {
+                        Application.Quit();
+                    }
+                    else if (_hit.transform.GetComponent<ButtonPackagingSection>())
+                    {
+                        Time.timeScale = 1;
+                        if (_cabinetTransitionCoroutine != null)
+                        {
+                            StopCoroutine(_cabinetTransitionCoroutine);
+                        }
+                        _packagingSectionTransitionCoroutine = StartCoroutine(PackagingSectionTransitionCoroutine());
+                    }
                     else
                         _hintIsCliked = false;
                 }
@@ -136,6 +164,26 @@ public class ClickDetector : MonoBehaviour
                 _hintIsCliked = false;
 
             _lastClickPastTime = 0f;
+        }
+    }
+    IEnumerator CabinetTransitionCoroutine()
+    {
+        while (_mainCamera.gameObject.transform.position != _cabinetCameraPosition.position & _mainCamera.gameObject.transform.rotation != _cabinetCameraPosition.rotation)
+        {
+            _mainCamera.gameObject.transform.rotation = Quaternion.Slerp(_mainCamera.gameObject.transform.rotation, _cabinetCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
+            _mainCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, _cabinetCameraPosition.position, _TransitionSpeed * Time.deltaTime);
+            yield return null;
+            
+        }
+        Time.timeScale = 0;
+    }
+    IEnumerator PackagingSectionTransitionCoroutine()
+    {
+        while (_mainCamera.gameObject.transform.position != _packagingSectionCameraPosition.position & _mainCamera.gameObject.transform.rotation != _packagingSectionCameraPosition.rotation)
+        {
+            _mainCamera.gameObject.transform.rotation = Quaternion.Slerp(_mainCamera.gameObject.transform.rotation, _packagingSectionCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
+            _mainCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, _packagingSectionCameraPosition.position, _TransitionSpeed * Time.deltaTime);
+            yield return null;
         }
     }
     IEnumerator BuffCoroutine()
