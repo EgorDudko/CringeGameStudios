@@ -41,6 +41,8 @@ public class ClickDetector : MonoBehaviour
     private Ray _ray;
     private RaycastHit _hit;
     private float _lastClickPastTime;
+    private float _conveyorSpeed;
+    private float _boxSpawnCoolDown;
     private MeshRenderer _hintMeshRender;
     private TextMeshProUGUI _hintTextMesh;
     private Color _hintColor;
@@ -55,6 +57,8 @@ public class ClickDetector : MonoBehaviour
 
     void Start()
     {
+        _boxSpawnCoolDown = _storage.boxSpawnCoolDown;
+        _conveyorSpeed = _storage.conveyorSpeed;
         _hintIsCliked = false;
         _lastClickPastTime = 100;
         _mainCamera = Camera.main;
@@ -88,7 +92,7 @@ public class ClickDetector : MonoBehaviour
         _lastClickPastTime += Time.deltaTime;
         if (Input.GetMouseButtonDown(0))
         {
-            if (_lastClickPastTime <= _autoclickCheatDetector)
+            if (_lastClickPastTime <= _autoclickCheatDetector & Time.deltaTime == 1)
             {
                 Debug.Log("AUTO-CLICK DETECTED!!!!!");
             }
@@ -104,20 +108,31 @@ public class ClickDetector : MonoBehaviour
                         _hintIsCliked = true;
                         Instantiate(_items[Random.Range(0, _items.Length)], _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
                     }
-                    else if (_hit.transform.GetComponent<SpeedUpgradeButton>() & !_buffIsWorking)
+                    else if (_hit.transform.GetComponent<SpeedUpgradeButton>())
                     {
                         if (_storage.money >= _storage.speedUpgradesCosts[_storage.speedLevel])
                         {
+
                             _storage.money -= _storage.speedUpgradesCosts[_storage.speedLevel];
-                            _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
-                            _storage.speedLevel++;
-                            _storage.boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
+                            if (!_buffIsWorking)
+                            {
+                                _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
+                                _conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
+                                _storage.speedLevel++;
+                                _storage.boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
+                            }
+                            else
+                            {
+                                _conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
+                                _storage.speedLevel++;
+                                _boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
+                            }
                             _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString();
                             _moneytext.text = _changeMoneytext + _storage.money;
                         }
                         _hintIsCliked = true;
                     }
-                    else if (_hit.transform.GetComponent<ValueUpgradeButton>() & !_buffIsWorking)
+                    else if (_hit.transform.GetComponent<ValueUpgradeButton>())
                     {
                         if (_storage.money >= _storage.valueUpgradesCosts[_storage.valueLevel])
                         {
@@ -199,8 +214,8 @@ public class ClickDetector : MonoBehaviour
             Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn3.transform.position, _BuffSpawn3.transform.rotation);
         }
         yield return new WaitForSeconds(12);
-        _storage.conveyorSpeed /= 5;
-        _storage.boxSpawnCoolDown *= 5;
+        _storage.conveyorSpeed = _conveyorSpeed;
+        _storage.boxSpawnCoolDown = _boxSpawnCoolDown;
         _buffIsWorking = false;
     }
 }
