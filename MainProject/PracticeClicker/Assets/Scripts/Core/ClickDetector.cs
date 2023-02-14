@@ -32,6 +32,10 @@ public class ClickDetector : MonoBehaviour
     [SerializeField] private Transform _cabinetCameraPosition;
     [SerializeField] private Transform _packagingSectionCameraPosition;
     [SerializeField] private float _TransitionSpeed;
+    [Header("---TabletTransitions---")]
+    [SerializeField] private GameObject _tablet;
+    [SerializeField] private Transform _closedTabletPosition;
+    [SerializeField] private Transform _openedTabletPosition;
     [Header("---Other Scripts---")]
     [SerializeField] private Storage _storage;
     [SerializeField] private ItemDetectorCoolDown _itemDetectorCoolDown;
@@ -52,6 +56,8 @@ public class ClickDetector : MonoBehaviour
     private bool _buffIsWorking;
     private Coroutine _cabinetTransitionCoroutine;
     private Coroutine _packagingSectionTransitionCoroutine;
+    private Coroutine _tabletTransitionCoroutine;
+    private Transform _tabletDestination;
 
 
 
@@ -66,6 +72,7 @@ public class ClickDetector : MonoBehaviour
         _hintTextMesh = _hintText.GetComponent<TextMeshProUGUI>();
         _hintColor = _hintMeshRender.material.color;
         _hintTextColor = _hintTextMesh.color;
+        _tabletDestination = _closedTabletPosition;
     }
 
     private void FixedUpdate()
@@ -154,7 +161,7 @@ public class ClickDetector : MonoBehaviour
                         {
                             StopCoroutine(_packagingSectionTransitionCoroutine);
                         }
-                        _cabinetTransitionCoroutine = StartCoroutine(CabinetTransitionCoroutine());
+                        _cabinetTransitionCoroutine = StartCoroutine(CabinetTransition());
                     }
                     else if (_hit.transform.GetComponent<ButtonExit>())
                     {
@@ -167,7 +174,15 @@ public class ClickDetector : MonoBehaviour
                         {
                             StopCoroutine(_cabinetTransitionCoroutine);
                         }
-                        _packagingSectionTransitionCoroutine = StartCoroutine(PackagingSectionTransitionCoroutine());
+                        _packagingSectionTransitionCoroutine = StartCoroutine(PackagingSectionTransition());
+                    }
+                    else if (_hit.transform.GetComponent<TabletWorkersScript>())
+                    {
+                        if (_tabletTransitionCoroutine != null)
+                        {
+                            StopCoroutine(_tabletTransitionCoroutine);
+                        }
+                        _tabletTransitionCoroutine = StartCoroutine(TabletTransition());
                     }
                     else
                         _hintIsCliked = false;
@@ -181,7 +196,22 @@ public class ClickDetector : MonoBehaviour
             _lastClickPastTime = 0f;
         }
     }
-    IEnumerator CabinetTransitionCoroutine()
+    IEnumerator TabletTransition()
+    {
+        Transform _tabletT = _tablet.transform;
+        
+        if (_tabletDestination == _openedTabletPosition)
+            _tabletDestination = _closedTabletPosition;
+        else
+            _tabletDestination = _openedTabletPosition;
+        while (_tabletT.position != _tabletDestination.position & _tabletT.rotation != _tabletDestination.rotation)
+        {
+            _tabletT.rotation = Quaternion.Slerp(_tabletT.rotation, _tabletDestination.rotation, _TransitionSpeed * Time.deltaTime);
+            _tabletT.position = Vector3.Lerp(_tabletT.position, _tabletDestination.position, _TransitionSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+    IEnumerator CabinetTransition()
     {
         while (_mainCamera.gameObject.transform.position != _cabinetCameraPosition.position & _mainCamera.gameObject.transform.rotation != _cabinetCameraPosition.rotation)
         {
@@ -192,7 +222,7 @@ public class ClickDetector : MonoBehaviour
         }
         Time.timeScale = 0;
     }
-    IEnumerator PackagingSectionTransitionCoroutine()
+    IEnumerator PackagingSectionTransition()
     {
         while (_mainCamera.gameObject.transform.position != _packagingSectionCameraPosition.position & _mainCamera.gameObject.transform.rotation != _packagingSectionCameraPosition.rotation)
         {
