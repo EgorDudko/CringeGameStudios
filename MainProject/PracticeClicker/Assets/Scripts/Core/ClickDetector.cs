@@ -63,6 +63,8 @@ public class ClickDetector : MonoBehaviour
 
     void Start()
     {
+        Camera.main.orthographic = true;
+        Camera.main.nearClipPlane = -1.45f;
         _boxSpawnCoolDown = _storage.boxSpawnCoolDown;
         _conveyorSpeed = _storage.conveyorSpeed;
         _hintIsCliked = false;
@@ -218,7 +220,6 @@ public class ClickDetector : MonoBehaviour
             _mainCamera.gameObject.transform.rotation = Quaternion.Slerp(_mainCamera.gameObject.transform.rotation, _cabinetCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
             _mainCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, _cabinetCameraPosition.position, _TransitionSpeed * Time.deltaTime);
             yield return null;
-            
         }
         Time.timeScale = 0;
     }
