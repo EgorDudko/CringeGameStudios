@@ -8,7 +8,6 @@ public class ConveyorScript : MonoBehaviour
 
     private Rigidbody rb;
 
-
     private void OnTriggerStay(Collider other)
     {
         if (rb = other.GetComponent<Rigidbody>())
@@ -17,7 +16,6 @@ public class ConveyorScript : MonoBehaviour
             rb.velocity = transform.right * _storage.conveyorSpeed;
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (rb = other.GetComponent<Rigidbody>())
@@ -25,7 +23,6 @@ public class ConveyorScript : MonoBehaviour
             rb.freezeRotation = true;
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (rb = other.GetComponent<Rigidbody>())
