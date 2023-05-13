@@ -8,7 +8,15 @@ public class MenuBoxEater : MonoBehaviour
     {
         if (other.GetComponent<BoxCollider>())
         {
-            Destroy(other.gameObject);
+            if (other.transform.parent != null && other.transform.parent.GetComponent<MenuWorkerScript>())
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
+
         }
     }
 }

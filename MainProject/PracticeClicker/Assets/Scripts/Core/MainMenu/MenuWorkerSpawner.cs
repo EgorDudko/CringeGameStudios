@@ -11,14 +11,20 @@ public class MenuWorkerSpawner : MonoBehaviour
     private float _timeAfterSpawn;
     private int _workersCount;
 
-    void Update()
+    private void Start()
+    {
+        _timeAfterSpawn = _cooldown;
+    }
+
+    private void Update()
     {
         _timeAfterSpawn += Time.deltaTime;
 
-        if (_workersCount < _workersMaxCount && _timeAfterSpawn > _cooldown)
+        if (_timeAfterSpawn > _cooldown)
         {
             Instantiate(_worker, transform.position,transform.rotation);
             _workersCount++;
+            _timeAfterSpawn = 0;
         }
     }
 }
