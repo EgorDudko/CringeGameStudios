@@ -6,12 +6,13 @@ using TMPro;
 public class BoxEatingScript : MonoBehaviour
 {
     [SerializeField] private Storage _storage;
+    [SerializeField] private int _layer;
     [SerializeField] private TMP_Text _moneytext;
     [SerializeField] private string _changeMoneytext;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BoxCollider>())
+        if (other.gameObject.layer == _layer)
         {
             Destroy(other.gameObject);
             GiveMoney();
