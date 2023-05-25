@@ -6,23 +6,18 @@ public class FunnelSciprt : MonoBehaviour
 {
     [SerializeField] private GameObject _box;
     [SerializeField] private GameObject _boxSpawner;
+    [SerializeField] private BoxDetectorScript _boxDetector;
     [SerializeField] private Storage _storage;
     
     private bool _isSpawnCooldown;
 
     private void OnTriggerStay(Collider other)
     {
-        if (!_isSpawnCooldown && other.GetComponent<Rigidbody>())
+        if (!_boxDetector._isCooldown && other.GetComponent<Rigidbody>())
         {
+            _boxDetector._isCooldown = true;
             Destroy(other.gameObject);
             Instantiate(_box, _boxSpawner.transform.position, _boxSpawner.transform.rotation);
-            StartCoroutine(SpawnCooldown());
         }
-    }
-    IEnumerator SpawnCooldown()
-    {
-        _isSpawnCooldown = true;
-        yield return new WaitForSeconds(_storage.boxSpawnCoolDown);
-        _isSpawnCooldown = false;
     }
 }

@@ -4,27 +4,35 @@ using UnityEngine;
 
 public class BoxDetectorScript : MonoBehaviour
 {
-    public bool _isClickCooldownBox;
+    public bool _isCooldown;
     private int _itemsInTrigger;
 
     private void Start()
     {
-        _isClickCooldownBox = false;
+        _isCooldown = false;
         _itemsInTrigger = 0;
     }
-
+    private void Update()
+    {
+        Debug.Log(_itemsInTrigger);
+    }
     private void OnTriggerEnter(Collider other)
     {
-        _isClickCooldownBox = true;
-        _itemsInTrigger++;
+        if(other.gameObject.layer == 6)
+        {
+            _isCooldown = true;
+            _itemsInTrigger++;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-
-        _itemsInTrigger--;
-        if (_itemsInTrigger == 0)
+        if (other.gameObject.layer == 6)
         {
-            _isClickCooldownBox = false;
+            _itemsInTrigger--;
+            if (_itemsInTrigger == 0)
+            {
+                _isCooldown = false;
+            }
         }
     }
 }

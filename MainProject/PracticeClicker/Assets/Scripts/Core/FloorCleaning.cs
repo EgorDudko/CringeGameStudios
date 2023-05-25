@@ -8,11 +8,8 @@ public class FloorCleaning : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.GetComponent<Rigidbody>())
-        {
+        if (other.gameObject.layer == 6|| other.gameObject.layer == 7)
             StartCoroutine(ItemClean(other.gameObject));
-        }
     }
 
     IEnumerator ItemClean(GameObject trash)

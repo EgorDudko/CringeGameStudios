@@ -64,7 +64,7 @@ public class ClickDetector : MonoBehaviour
     void Start()
     {
         Camera.main.orthographic = true;
-        Camera.main.nearClipPlane = -1.45f;
+        Camera.main.nearClipPlane = -2f;
         _boxSpawnCoolDown = _storage.boxSpawnCoolDown;
         _conveyorSpeed = _storage.conveyorSpeed;
         _hintIsCliked = false;
