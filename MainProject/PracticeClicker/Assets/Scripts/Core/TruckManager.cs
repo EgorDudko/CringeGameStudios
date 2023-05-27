@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TruckManager : MonoBehaviour
 {
     [SerializeField] private Transform _door;
+    [SerializeField] private Button _sendButton;
+    [SerializeField] private GameObject _blockingCollider;
+    [SerializeField] private TMP_Text _capacityText;
     [SerializeField] private int _boxLayer;
-    [SerializeField] private int _maxBoxCount;
     [SerializeField] private Transform _outsidePosition;
     [SerializeField] private Transform _insidePosition;
     [SerializeField] private Storage _storage;
@@ -18,11 +22,15 @@ public class TruckManager : MonoBehaviour
     {
         _isMoving = false;
         _boxCount = 0;
+        _capacityText.text = "0/"+ _storage.truckCapacity;
+        _sendButton.onClick.AddListener(SendGoods);
+        _blockingCollider.SetActive(false);
     }
 
     private IEnumerator SendTruck()
     {
         _isMoving = true;
+        _blockingCollider.SetActive(true);
         float t = 0;
         while (transform.position.x > _outsidePosition.position.x + 0.4f)
         {
@@ -31,7 +39,9 @@ public class TruckManager : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, _outsidePosition.position, Mathf.SmoothStep(0.0f, 1.0f, Mathf.SmoothStep(0.0f, 1.0f, t)));
             yield return new WaitForFixedUpdate();
         }
+        _capacityText.text = "0/" + _storage.truckCapacity;
         _boxCount = 0;
+        _blockingCollider.SetActive(false);
         t = 0;
         while (transform.position.x < _insidePosition.position.x - 0.4f)
         {
@@ -41,15 +51,18 @@ public class TruckManager : MonoBehaviour
         }
         while (_door.rotation.eulerAngles.z > 1)
         {
-            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, 0), 0.01f);
+            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, 0), 0.06f);
             yield return new WaitForFixedUpdate();
         }
         _isMoving = false;
     }
 
-    public void UpgradeCapacity()
+    private void SendGoods()
     {
-        _maxBoxCount = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
+        if (!_isMoving)
+        {
+            StartCoroutine(SendTruck());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,8 +70,8 @@ public class TruckManager : MonoBehaviour
         if (other.gameObject.layer == _boxLayer)
         {
             other.transform.parent = transform;
-            _boxCount++;
-            if(!_isMoving && _maxBoxCount < _boxCount)
+            if(_storage.truckCapacity >= _boxCount) _capacityText.text = (_boxCount++) + "/" + _storage.truckCapacity;
+            if(!_isMoving && _storage.truckCapacity < _boxCount)
             {
                 StartCoroutine(SendTruck());
             }

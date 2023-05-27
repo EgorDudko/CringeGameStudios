@@ -21,6 +21,10 @@ public class TabletUpgrades : MonoBehaviour
         _valueUpdateButton.onClick.AddListener(ValueUpgrade);
         _capacityUpdateButton.onClick.AddListener(CapacityUpgrade);
 
+        _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
+        _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
+        _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
+
         _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString() + " $";
         _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString() + " $";
         _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
@@ -58,7 +62,7 @@ public class TabletUpgrades : MonoBehaviour
             _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
             _storage.truckCapacityLevel++;
 
-            _valueUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
+            _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
             _moneyText.text = _storage.money + " $";
         }
     }
