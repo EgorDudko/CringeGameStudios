@@ -21,7 +21,6 @@ public class ItemDetectorCoolDown : MonoBehaviour
     {
         _itemsInTrigger++;
         _isClickCooldown = true;
-        _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _redIndicator;
     }
     private void OnTriggerExit(Collider other)
     {
@@ -30,7 +29,6 @@ public class ItemDetectorCoolDown : MonoBehaviour
         if (_itemsInTrigger == 0)
         {
             _isClickCooldown = false;
-            _cooldownColoredIndicator.GetComponent<MeshRenderer>().material = _greenIndicator;
         }
     }
 }

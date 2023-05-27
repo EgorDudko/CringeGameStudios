@@ -45,13 +45,14 @@ public class TruckManager : MonoBehaviour
         t = 0;
         while (transform.position.x < _insidePosition.position.x - 0.4f)
         {
-            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, 0), 0.01f);
-            transform.position = Vector3.Lerp(transform.position, _insidePosition.position, 0.02f);
+            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.01f);
+            transform.position = Vector3.Lerp(transform.position, _insidePosition.position, 0.06f);
             yield return new WaitForFixedUpdate();
         }
-        while (_door.rotation.eulerAngles.z > 1)
+        while (!(_door.rotation.eulerAngles.z < 350 && _door.rotation.eulerAngles.z > 300))
         {
-            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, 0), 0.06f);
+            Debug.Log(_door.rotation.eulerAngles.z);
+            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.06f);
             yield return new WaitForFixedUpdate();
         }
         _isMoving = false;
