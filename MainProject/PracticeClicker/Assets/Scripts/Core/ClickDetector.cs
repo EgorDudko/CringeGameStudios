@@ -32,10 +32,6 @@ public class ClickDetector : MonoBehaviour
     [SerializeField] private Transform _cabinetCameraPosition;
     [SerializeField] private Transform _packagingSectionCameraPosition;
     [SerializeField] private float _TransitionSpeed;
-    [Header("---TabletTransitions---")]
-    [SerializeField] private GameObject _tablet;
-    [SerializeField] private Transform _closedTabletPosition;
-    [SerializeField] private Transform _openedTabletPosition;
     [Header("---Other Scripts---")]
     [SerializeField] private Storage _storage;
     [SerializeField] private ItemDetectorCoolDown _itemDetectorCoolDown;
@@ -56,8 +52,6 @@ public class ClickDetector : MonoBehaviour
     private bool _buffIsWorking;
     private Coroutine _cabinetTransitionCoroutine;
     private Coroutine _packagingSectionTransitionCoroutine;
-    private Coroutine _tabletTransitionCoroutine;
-    private Transform _tabletDestination;
 
 
 
@@ -74,7 +68,6 @@ public class ClickDetector : MonoBehaviour
         _hintTextMesh = _hintText.GetComponent<TextMeshProUGUI>();
         _hintColor = _hintMeshRender.material.color;
         _hintTextColor = _hintTextMesh.color;
-        _tabletDestination = _closedTabletPosition;
     }
 
     private void FixedUpdate()
@@ -112,46 +105,11 @@ public class ClickDetector : MonoBehaviour
 
                 if (Physics.Raycast(_ray, out _hit, 100))
                 {
+                    TabletTransition t;
                     if (_hit.transform.GetComponent<ClickDetector>())
                     {
                         _hintIsCliked = true;
                         Instantiate(_items[Random.Range(0, _items.Length)], _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
-                    }
-                    else if (_hit.transform.GetComponent<SpeedUpgradeButton>())
-                    {
-                        if (_storage.money >= _storage.speedUpgradesCosts[_storage.speedLevel])
-                        {
-
-                            _storage.money -= _storage.speedUpgradesCosts[_storage.speedLevel];
-                            if (!_buffIsWorking)
-                            {
-                                _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
-                                _conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
-                                _storage.speedLevel++;
-                                _storage.boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
-                            }
-                            else
-                            {
-                                _conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
-                                _storage.speedLevel++;
-                                _boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
-                            }
-                            _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString();
-                            _moneytext.text = _changeMoneytext + _storage.money;
-                        }
-                        _hintIsCliked = true;
-                    }
-                    else if (_hit.transform.GetComponent<ValueUpgradeButton>())
-                    {
-                        if (_storage.money >= _storage.valueUpgradesCosts[_storage.valueLevel])
-                        {
-                            _storage.money -= _storage.valueUpgradesCosts[_storage.valueLevel];
-                            _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
-                            _storage.valueLevel++;
-
-                            _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString();
-                            _moneytext.text = _changeMoneytext + _storage.money;
-                        }
                     }
                     else if (_hit.transform.GetComponent<BuffButton>() & !_buffIsWorking)
                     {
@@ -178,13 +136,9 @@ public class ClickDetector : MonoBehaviour
                         }
                         _packagingSectionTransitionCoroutine = StartCoroutine(PackagingSectionTransition());
                     }
-                    else if (_hit.transform.GetComponent<TabletWorkersScript>())
+                    else if (t = _hit.transform.GetComponent<TabletTransition>())
                     {
-                        if (_tabletTransitionCoroutine != null)
-                        {
-                            StopCoroutine(_tabletTransitionCoroutine);
-                        }
-                        _tabletTransitionCoroutine = StartCoroutine(TabletTransition());
+                        t.MoveTablet();
                     }
                     else
                         _hintIsCliked = false;
@@ -198,21 +152,7 @@ public class ClickDetector : MonoBehaviour
             _lastClickPastTime = 0f;
         }
     }
-    IEnumerator TabletTransition()
-    {
-        Transform _tabletT = _tablet.transform;
-        
-        if (_tabletDestination == _openedTabletPosition)
-            _tabletDestination = _closedTabletPosition;
-        else
-            _tabletDestination = _openedTabletPosition;
-        while (_tabletT.position != _tabletDestination.position & _tabletT.rotation != _tabletDestination.rotation)
-        {
-            _tabletT.rotation = Quaternion.Slerp(_tabletT.rotation, _tabletDestination.rotation, _TransitionSpeed * Time.deltaTime);
-            _tabletT.position = Vector3.Lerp(_tabletT.position, _tabletDestination.position, _TransitionSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
+
     IEnumerator CabinetTransition()
     {
         while (_mainCamera.gameObject.transform.position != _cabinetCameraPosition.position & _mainCamera.gameObject.transform.rotation != _cabinetCameraPosition.rotation)
@@ -235,6 +175,7 @@ public class ClickDetector : MonoBehaviour
     IEnumerator BuffCoroutine()
     {
         _buffIsWorking = true;
+        float conveyorSpeed = _storage.conveyorSpeed;
         _storage.conveyorSpeed *= 5;
         _storage.boxSpawnCoolDown /= 5;
         for (int i = 0; i < 30; i++)
@@ -245,8 +186,7 @@ public class ClickDetector : MonoBehaviour
             Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn3.transform.position, _BuffSpawn3.transform.rotation);
         }
         yield return new WaitForSeconds(12);
-        _storage.conveyorSpeed = _conveyorSpeed;
-        _storage.boxSpawnCoolDown = _boxSpawnCoolDown;
+        _storage.conveyorSpeed = conveyorSpeed;
         _buffIsWorking = false;
     }
 }
