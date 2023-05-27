@@ -9,7 +9,6 @@ public class TruckManager : MonoBehaviour
     [SerializeField] private int _maxBoxCount;
     [SerializeField] private Transform _outsidePosition;
     [SerializeField] private Transform _insidePosition;
-    [SerializeField] private Storage _storage;
 
     private int _boxCount;
     private bool _isMoving;
@@ -46,10 +45,9 @@ public class TruckManager : MonoBehaviour
         }
         _isMoving = false;
     }
-
     public void UpgradeCapacity()
     {
-        _maxBoxCount = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
+        
     }
 
     private void OnTriggerEnter(Collider other)

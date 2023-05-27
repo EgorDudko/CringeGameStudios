@@ -12,6 +12,10 @@ public class BoxDetectorScript : MonoBehaviour
         _isCooldown = false;
         _itemsInTrigger = 0;
     }
+    private void Update()
+    {
+        Debug.Log(_itemsInTrigger);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == 6)
