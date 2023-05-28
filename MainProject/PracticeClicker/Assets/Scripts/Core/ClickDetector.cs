@@ -17,21 +17,11 @@ public class ClickDetector : MonoBehaviour
     [SerializeField] private float _hintTransparancy;
     [SerializeField] private float _hintTextTransparancy;
     [SerializeField] private TMP_Text _hintText;
-    [Header("---Cooldown indicator---")]
-    [SerializeField] private GameObject _cooldownColoredIndicator;
-    [SerializeField] private Material _redIndicator;
-    [SerializeField] private Material _greenIndicator;
     [Header("---Cheat detector---")]
     [SerializeField] private float _autoclickCheatDetector;
-    [Header("---For Upgrades---")]
-    [SerializeField] private TMP_Text _moneytext;
-    [SerializeField] private TMP_Text _speedUpgradeCostText;
-    [SerializeField] private TMP_Text _valueUpgradeCostText;
-    [SerializeField] private string _changeMoneytext;
+    [SerializeField] private GameObject _autoclickPanel;
     [Header("---CameraTransitions---")]
-    [SerializeField] private Transform _cabinetCameraPosition;
-    [SerializeField] private Transform _packagingSectionCameraPosition;
-    [SerializeField] private float _TransitionSpeed;
+    [SerializeField] private CameraTransitions _cameraTransitions;
     [Header("---Other Scripts---")]
     [SerializeField] private Storage _storage;
     [SerializeField] private ItemDetectorCoolDown _itemDetectorCoolDown;
@@ -72,22 +62,22 @@ public class ClickDetector : MonoBehaviour
 
     private void FixedUpdate()
     {
-            if (_lastClickPastTime > _timeForHint && _hintMeshRender.material.color.a != _hintTransparancy || _hintIsAppearing && _lastClickPastTime > _timeForHint)
-            {
-                _hintIsAppearing = true;
-                _hintColor.a = Mathf.Lerp(_hintColor.a, _hintTransparancy, _lerpSpeed);
-                _hintMeshRender.material.color = _hintColor;
-                _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, _hintTextTransparancy, _lerpSpeed); ;
-                _hintTextMesh.color = _hintTextColor;
-            }
-            else if (_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0 && _hintIsCliked || !_hintIsAppearing && _lastClickPastTime <= _timeForHint)
-            {
-                _hintIsAppearing = false;
-                _hintColor.a = Mathf.Lerp(_hintColor.a, 0, _lerpSpeed * 2);
-                _hintMeshRender.material.color = _hintColor;
-                _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, 0, _lerpSpeed * 2);
-                _hintTextMesh.color = _hintTextColor;
-            }
+        if (_lastClickPastTime > _timeForHint && _hintMeshRender.material.color.a != _hintTransparancy || _hintIsAppearing && _lastClickPastTime > _timeForHint)
+        {
+            _hintIsAppearing = true;
+            _hintColor.a = Mathf.Lerp(_hintColor.a, _hintTransparancy, _lerpSpeed);
+            _hintMeshRender.material.color = _hintColor;
+            _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, _hintTextTransparancy, _lerpSpeed); ;
+            _hintTextMesh.color = _hintTextColor;
+        }
+        else if (_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0 && _hintIsCliked || !_hintIsAppearing && _lastClickPastTime <= _timeForHint)
+        {
+            _hintIsAppearing = false;
+            _hintColor.a = Mathf.Lerp(_hintColor.a, 0, _lerpSpeed * 2);
+            _hintMeshRender.material.color = _hintColor;
+            _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, 0, _lerpSpeed * 2);
+            _hintTextMesh.color = _hintTextColor;
+        }
     }
     void Update()
     {
@@ -115,26 +105,21 @@ public class ClickDetector : MonoBehaviour
                     {
                         StartCoroutine(BuffCoroutine());
                     }
-                    else if (_hit.transform.GetComponent<ButtonCabinet>())
-                    {
-                        if(_packagingSectionTransitionCoroutine != null)
-                        {
-                            StopCoroutine(_packagingSectionTransitionCoroutine);
-                        }
-                        _cabinetTransitionCoroutine = StartCoroutine(CabinetTransition());
-                    }
                     else if (_hit.transform.GetComponent<ButtonExit>())
                     {
                         Application.Quit();
                     }
+                    else if (_hit.transform.GetComponent<ButtonCabinet>())
+                    {
+                        _cameraTransitions.StartTransition(CameraTransitions.Transition.Cabinet);
+                    }
                     else if (_hit.transform.GetComponent<ButtonPackagingSection>())
                     {
-                        Time.timeScale = 1;
-                        if (_cabinetTransitionCoroutine != null)
-                        {
-                            StopCoroutine(_cabinetTransitionCoroutine);
-                        }
-                        _packagingSectionTransitionCoroutine = StartCoroutine(PackagingSectionTransition());
+                        _cameraTransitions.StartTransition(CameraTransitions.Transition.PackagingSection);
+                    }
+                    else if (_hit.transform.GetComponent<OutlineObject>())
+                    {
+                        _cameraTransitions.StartTransition(CameraTransitions.Transition.Computer);
                     }
                     else if (t = _hit.transform.GetComponent<TabletTransition>())
                     {
@@ -153,25 +138,6 @@ public class ClickDetector : MonoBehaviour
         }
     }
 
-    IEnumerator CabinetTransition()
-    {
-        while (_mainCamera.gameObject.transform.position != _cabinetCameraPosition.position & _mainCamera.gameObject.transform.rotation != _cabinetCameraPosition.rotation)
-        {
-            _mainCamera.gameObject.transform.rotation = Quaternion.Slerp(_mainCamera.gameObject.transform.rotation, _cabinetCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
-            _mainCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, _cabinetCameraPosition.position, _TransitionSpeed * Time.deltaTime);
-            yield return null;
-        }
-        Time.timeScale = 0;
-    }
-    IEnumerator PackagingSectionTransition()
-    {
-        while (_mainCamera.gameObject.transform.position != _packagingSectionCameraPosition.position & _mainCamera.gameObject.transform.rotation != _packagingSectionCameraPosition.rotation)
-        {
-            _mainCamera.gameObject.transform.rotation = Quaternion.Slerp(_mainCamera.gameObject.transform.rotation, _packagingSectionCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
-            _mainCamera.gameObject.transform.position = Vector3.Lerp(_mainCamera.gameObject.transform.position, _packagingSectionCameraPosition.position, _TransitionSpeed * Time.deltaTime);
-            yield return null;
-        }
-    }
     IEnumerator BuffCoroutine()
     {
         _buffIsWorking = true;
