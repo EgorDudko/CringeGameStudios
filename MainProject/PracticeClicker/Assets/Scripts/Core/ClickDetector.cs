@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class ClickDetector : MonoBehaviour
 {
-    [Header("---Items Spawning---")]
-    [SerializeField] private GameObject _itemsSpawn;
-    [SerializeField] private GameObject[] _items;
-    [SerializeField] private GameObject _BuffSpawn1;
-    [SerializeField] private GameObject _BuffSpawn2;
-    [SerializeField] private GameObject _BuffSpawn3;
     [Header("---Hint for click---")]
     [SerializeField] private float _lerpSpeed;
     [SerializeField] private float _timeForHint;
@@ -39,7 +33,7 @@ public class ClickDetector : MonoBehaviour
     private Color _hintTextColor;
     private bool _hintIsCliked;
     private bool _hintIsAppearing;
-    private bool _buffIsWorking;
+
     private Coroutine _cabinetTransitionCoroutine;
     private Coroutine _packagingSectionTransitionCoroutine;
 
@@ -99,11 +93,6 @@ public class ClickDetector : MonoBehaviour
                     if (_hit.transform.GetComponent<ClickDetector>())
                     {
                         _hintIsCliked = true;
-                        Instantiate(_items[Random.Range(0, _items.Length)], _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
-                    }
-                    else if (_hit.transform.GetComponent<BuffButton>() & !_buffIsWorking)
-                    {
-                        StartCoroutine(BuffCoroutine());
                     }
                     else if (_hit.transform.GetComponent<ButtonExit>())
                     {
@@ -136,23 +125,5 @@ public class ClickDetector : MonoBehaviour
 
             _lastClickPastTime = 0f;
         }
-    }
-
-    IEnumerator BuffCoroutine()
-    {
-        _buffIsWorking = true;
-        float conveyorSpeed = _storage.conveyorSpeed;
-        _storage.conveyorSpeed *= 5;
-        _storage.boxSpawnCoolDown /= 5;
-        for (int i = 0; i < 30; i++)
-        {
-            yield return new WaitForSeconds(0.2f);
-            Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn1.transform.position, _BuffSpawn1.transform.rotation);
-            Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn2.transform.position, _BuffSpawn2.transform.rotation);
-            Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn3.transform.position, _BuffSpawn3.transform.rotation);
-        }
-        yield return new WaitForSeconds(12);
-        _storage.conveyorSpeed = conveyorSpeed;
-        _buffIsWorking = false;
     }
 }

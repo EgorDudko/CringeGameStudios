@@ -51,7 +51,6 @@ public class TruckManager : MonoBehaviour
         }
         while (!(_door.rotation.eulerAngles.z < 350 && _door.rotation.eulerAngles.z > 300))
         {
-            Debug.Log(_door.rotation.eulerAngles.z);
             _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.06f);
             yield return new WaitForFixedUpdate();
         }

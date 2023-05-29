@@ -22,6 +22,7 @@ public class OutlineObject : MonoBehaviour
     {
         for (int i = 0; i < _meshRenderers.Length; i++)
         {
+            if (_meshRenderers[i] == null) return;
             _meshRenderers[i].material.color = _deafultColors[i];
         }
     }
