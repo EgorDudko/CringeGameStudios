@@ -25,8 +25,6 @@ public class ClickDetector : MonoBehaviour
     private Ray _ray;
     private RaycastHit _hit;
     private float _lastClickPastTime;
-    private float _conveyorSpeed;
-    private float _boxSpawnCoolDown;
     private MeshRenderer _hintMeshRender;
     private TextMeshProUGUI _hintTextMesh;
     private Color _hintColor;
@@ -34,17 +32,12 @@ public class ClickDetector : MonoBehaviour
     private bool _hintIsCliked;
     private bool _hintIsAppearing;
 
-    private Coroutine _cabinetTransitionCoroutine;
-    private Coroutine _packagingSectionTransitionCoroutine;
-
 
 
     void Start()
     {
         Camera.main.orthographic = true;
         Camera.main.nearClipPlane = -2f;
-        _boxSpawnCoolDown = _storage.boxSpawnCoolDown;
-        _conveyorSpeed = _storage.conveyorSpeed;
         _hintIsCliked = false;
         _lastClickPastTime = 100;
         _mainCamera = Camera.main;
@@ -56,15 +49,7 @@ public class ClickDetector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_lastClickPastTime > _timeForHint && _hintMeshRender.material.color.a != _hintTransparancy || _hintIsAppearing && _lastClickPastTime > _timeForHint)
-        {
-            _hintIsAppearing = true;
-            _hintColor.a = Mathf.Lerp(_hintColor.a, _hintTransparancy, _lerpSpeed);
-            _hintMeshRender.material.color = _hintColor;
-            _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, _hintTextTransparancy, _lerpSpeed); ;
-            _hintTextMesh.color = _hintTextColor;
-        }
-        else if (_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0 && _hintIsCliked || !_hintIsAppearing && _lastClickPastTime <= _timeForHint)
+        if (_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0 && _hintIsCliked || !_hintIsAppearing && _lastClickPastTime <= _timeForHint)
         {
             _hintIsAppearing = false;
             _hintColor.a = Mathf.Lerp(_hintColor.a, 0, _lerpSpeed * 2);

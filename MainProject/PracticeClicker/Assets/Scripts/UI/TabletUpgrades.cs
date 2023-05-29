@@ -39,9 +39,14 @@ public class TabletUpgrades : MonoBehaviour
             _storage.speedLevel++;
             _storage.boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
             _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString() + " $";
-            _moneyText.text = _storage.money + " $";
+            _moneyText.text = "Money: " + _storage.money + " $";
+        }
+        if (_storage.speedLevel + 1 >= _storage.speedUpgradesCosts.Length)
+        {
+            _speedUpdateButton.interactable = false;
         }
     }
+
     private void ValueUpgrade()
     {
         if (_storage.money >= _storage.valueUpgradesCosts[_storage.valueLevel])
@@ -51,9 +56,14 @@ public class TabletUpgrades : MonoBehaviour
             _storage.valueLevel++;
 
             _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString() + " $";
-            _moneyText.text = _storage.money + " $";
+            _moneyText.text = "Money: " + _storage.money + " $";
+        }
+        if (_storage.valueLevel + 1 >= _storage.valueUpgradesCosts.Length)
+        {
+            _valueUpdateButton.interactable = false;
         }
     }
+
     private void CapacityUpgrade()
     {
         if (_storage.money >= _storage.truckCapacityCosts[_storage.truckCapacityLevel])
@@ -63,7 +73,11 @@ public class TabletUpgrades : MonoBehaviour
             _storage.truckCapacityLevel++;
 
             _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
-            _moneyText.text = _storage.money + " $";
+            _moneyText.text = "Money: " + _storage.money + " $";
+        }
+        if (_storage.truckCapacityLevel + 1 >= _storage.truckCapacityCosts.Length)
+        {
+            _capacityUpdateButton.interactable = false;
         }
     }
 }

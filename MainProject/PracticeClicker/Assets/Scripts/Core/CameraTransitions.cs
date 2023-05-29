@@ -10,6 +10,7 @@ public class CameraTransitions : MonoBehaviour
         Cabinet,
         Computer
     }
+
     [SerializeField] private float _TransitionSpeed;
     [SerializeField] private Transform _cabinetCameraPosition;
     [SerializeField] private Transform _packagingSectionCameraPosition;
@@ -55,9 +56,10 @@ public class CameraTransitions : MonoBehaviour
     private IEnumerator CabinetTransition()
     {
         _outline.SetActive(true);
-        if (Camera.main.nearClipPlane == 0) Camera.main.nearClipPlane = -2;
+        Camera.main.nearClipPlane = 1;
         while (gameObject.transform.position != _cabinetCameraPosition.position & gameObject.transform.rotation != _cabinetCameraPosition.rotation)
         {
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 4, 0.1f);
             transform.rotation = Quaternion.Slerp(transform.rotation, _cabinetCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
             transform.position = Vector3.Lerp(transform.position, _cabinetCameraPosition.position, _TransitionSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
@@ -67,6 +69,7 @@ public class CameraTransitions : MonoBehaviour
     private IEnumerator PackagingSectionTransition()
     {
         Time.timeScale = 1;
+        Camera.main.nearClipPlane = -2;
         while (gameObject.transform.position != _packagingSectionCameraPosition.position & transform.rotation != _packagingSectionCameraPosition.rotation)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, _packagingSectionCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);

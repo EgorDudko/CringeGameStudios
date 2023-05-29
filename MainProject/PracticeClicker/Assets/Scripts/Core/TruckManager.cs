@@ -17,9 +17,12 @@ public class TruckManager : MonoBehaviour
 
     private int _boxCount;
     private bool _isMoving;
+    private Coroutine _cosingDoor;
+    private List<GameObject> _boxes;
 
     void Start()
     {
+        _boxes = new List<GameObject>();
         _isMoving = false;
         _boxCount = 0;
         _capacityText.text = "0/"+ _storage.truckCapacity;
@@ -29,6 +32,7 @@ public class TruckManager : MonoBehaviour
 
     private IEnumerator SendTruck()
     {
+        if (_cosingDoor != null) StopCoroutine(_cosingDoor);
         _isMoving = true;
         _blockingCollider.SetActive(true);
         float t = 0;
@@ -43,6 +47,8 @@ public class TruckManager : MonoBehaviour
         _boxCount = 0;
         _blockingCollider.SetActive(false);
         t = 0;
+        if (_cosingDoor != null) StopCoroutine(_cosingDoor);
+        _boxes = new List<GameObject>();
         while (transform.position.x < _insidePosition.position.x - 0.4f)
         {
             _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.01f);
@@ -56,7 +62,15 @@ public class TruckManager : MonoBehaviour
         }
         _isMoving = false;
     }
+    private IEnumerator CloseDoor()
+    {
+        while ((_door.rotation.eulerAngles.z < 360 && _door.rotation.eulerAngles.z > 300) || _door.rotation.eulerAngles.z < 90)
+        {
+            _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, 90), 0.01f);
+            yield return new WaitForFixedUpdate();
+        }
 
+    }
     private void SendGoods()
     {
         if (!_isMoving)
@@ -67,13 +81,14 @@ public class TruckManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == _boxLayer)
+        if (other.gameObject.layer == _boxLayer && !_boxes.Contains(other.gameObject))
         {
+            _boxes.Add(other.gameObject);
             other.transform.parent = transform;
             if(_storage.truckCapacity >= _boxCount) _capacityText.text = (_boxCount++) + "/" + _storage.truckCapacity;
-            if(!_isMoving && _storage.truckCapacity < _boxCount)
+            if(_cosingDoor == null && _storage.truckCapacity < _boxCount)
             {
-                StartCoroutine(SendTruck());
+                _cosingDoor = StartCoroutine(CloseDoor());
             }
         }
     }
