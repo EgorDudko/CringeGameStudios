@@ -2550,6 +2550,22 @@ PrefabInstance:
       propertyPath: _outline
       value: 
       objectReference: {fileID: 1823783042}
+    - target: {fileID: 136490051, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 249096932, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 748670969, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065730105, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4885053708027945740, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
       propertyPath: m_RootOrder
       value: 0
