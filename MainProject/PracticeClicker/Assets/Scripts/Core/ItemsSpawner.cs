@@ -70,6 +70,12 @@ public class ItemsSpawner : MonoBehaviour
         }       
     }
 
+    public void SpawnItem()
+    {
+        GameObject item = _items[Random.Range(0, _items.Length)];
+        Instantiate(item, _itemsSpawn.transform.position, _itemsSpawn.transform.rotation);
+    }
+
     IEnumerator BuffCoroutine()
     {
         _buffIsWorking = true;

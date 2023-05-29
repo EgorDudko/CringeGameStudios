@@ -5682,6 +5682,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.688
       objectReference: {fileID: 0}
+    - target: {fileID: 8748705537981047855, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_Name
+      value: CanvasMoney
+      objectReference: {fileID: 0}
     - target: {fileID: 8748705539693859048, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.3293073
