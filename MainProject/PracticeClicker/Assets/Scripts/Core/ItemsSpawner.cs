@@ -118,7 +118,7 @@ public class ItemsSpawner : MonoBehaviour
         _unloadingPanelUpgrades.SetActive(true);
         _buffIsWorking = true;
         float conveyorSpeed = _storage.conveyorSpeed;
-        _storage.conveyorSpeed *= 5;
+        _storage.conveyorSpeed = _storage.speedUpgrades[0] * 5;
         _storage.boxSpawnCoolDown /= 5;
         for (int i = 0; i < 15; i++)
         {

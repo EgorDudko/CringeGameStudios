@@ -71,7 +71,6 @@ public class TabletUpgrades : MonoBehaviour
             _storage.money -= _storage.truckCapacityCosts[_storage.truckCapacityLevel];
             _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
             _storage.truckCapacityLevel++;
-
             _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
         }
