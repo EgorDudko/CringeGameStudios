@@ -3,7 +3,32 @@ guid: 9c17bc0fa891c5b4994eddcf7df088df
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: affc46c390e75ad4faab6b0b3f899418, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dark
+    second: {fileID: 2100000, guid: 71c30b8897566fe4596bd20b889a5b21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grey
+    second: {fileID: 2100000, guid: a6139cd48c3644941b4fe27a690d6880, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grey-dark
+    second: {fileID: 2100000, guid: 07d3893ba36de664c94c0f996929e4e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: striping
+    second: {fileID: 2100000, guid: 7e222995e536b054696bae36979ce3fe, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
