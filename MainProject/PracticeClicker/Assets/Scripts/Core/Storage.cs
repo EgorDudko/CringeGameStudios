@@ -6,7 +6,6 @@ public class Storage : MonoBehaviour
 {
     public int money;
     public float conveyorSpeed;
-    public float boxSpawnCoolDown;
     public int speedLevel;
     public int valueLevel;
     public int truckCapacityLevel;

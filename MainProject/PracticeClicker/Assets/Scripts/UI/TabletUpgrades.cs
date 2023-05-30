@@ -12,6 +12,9 @@ public class TabletUpgrades : MonoBehaviour
     [SerializeField] private TMP_Text _speedUpgradeCostText;
     [SerializeField] private TMP_Text _valueUpgradeCostText;
     [SerializeField] private TMP_Text _capacityUpgradeCostText;
+    [SerializeField] private GameObject _speedFullUpdate;
+    [SerializeField] private GameObject _valueFullUpdate;
+    [SerializeField] private GameObject _capacityFullUpdate;
     [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private Storage _storage;
 
@@ -35,15 +38,15 @@ public class TabletUpgrades : MonoBehaviour
         if (_storage.money >= _storage.speedUpgradesCosts[_storage.speedLevel])
         {
             _storage.money -= _storage.speedUpgradesCosts[_storage.speedLevel];
-            _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
             _storage.speedLevel++;
-            _storage.boxSpawnCoolDown /= (_storage.speedUpgrades[_storage.speedLevel] / _storage.speedUpgrades[_storage.speedLevel - 1]);
+            _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
             _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
         }
         if (_storage.speedLevel + 1 >= _storage.speedUpgradesCosts.Length)
         {
             _speedUpdateButton.interactable = false;
+            _speedFullUpdate.SetActive(true);
         }
     }
 
@@ -52,15 +55,15 @@ public class TabletUpgrades : MonoBehaviour
         if (_storage.money >= _storage.valueUpgradesCosts[_storage.valueLevel])
         {
             _storage.money -= _storage.valueUpgradesCosts[_storage.valueLevel];
-            _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
             _storage.valueLevel++;
-
+            _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
             _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
         }
         if (_storage.valueLevel + 1 >= _storage.valueUpgradesCosts.Length)
         {
             _valueUpdateButton.interactable = false;
+            _valueFullUpdate.SetActive(true);
         }
     }
 
@@ -69,14 +72,15 @@ public class TabletUpgrades : MonoBehaviour
         if (_storage.money >= _storage.truckCapacityCosts[_storage.truckCapacityLevel])
         {
             _storage.money -= _storage.truckCapacityCosts[_storage.truckCapacityLevel];
-            _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
             _storage.truckCapacityLevel++;
+            _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
             _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
         }
         if (_storage.truckCapacityLevel + 1 >= _storage.truckCapacityCosts.Length)
         {
             _capacityUpdateButton.interactable = false;
+            _capacityFullUpdate.SetActive(true);
         }
     }
 }

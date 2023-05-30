@@ -25,7 +25,6 @@ public class ItemsSpawner : MonoBehaviour
     [SerializeField] private GameObject _unloadingPanelUpgrades;
     [SerializeField] private string[] _addresses;
 
-    private bool _buffIsWorking;
     private float _timeForNextBuff;
     private bool _isSpawning;
     private GameObject _spawningItemPrefab;
@@ -38,7 +37,6 @@ public class ItemsSpawner : MonoBehaviour
             AddItemToList();
         }
         _isSpawning = false;
-        _buffIsWorking = false;
         _buffButton.onClick.AddListener(LaunchBuff);
     }
 
@@ -68,7 +66,7 @@ public class ItemsSpawner : MonoBehaviour
     {
         Transform button = Instantiate(_itemButtonPrefab).transform;
         GameObject item = _items[Random.Range(0, _items.Length)];
-        button.Find("Name").GetComponent<TMP_Text>().text = item.name;
+        button.Find("Name").GetComponent<TMP_Text>().text = item.name.Split(' ')[0];
         button.Find("Number").GetComponent<TMP_Text>().text = Random.Range(0, 999999999).ToString();
         button.Find("Address").GetComponent<TMP_Text>().text = "<u>Address</u>\n\n"+_addresses[Random.Range(0, _addresses.Length)];
         button.SetParent(_spawnItemList.transform, false);
@@ -116,10 +114,8 @@ public class ItemsSpawner : MonoBehaviour
     private IEnumerator BuffCoroutine()
     {
         _unloadingPanelUpgrades.SetActive(true);
-        _buffIsWorking = true;
         float conveyorSpeed = _storage.conveyorSpeed;
         _storage.conveyorSpeed = _storage.speedUpgrades[0] * 5;
-        _storage.boxSpawnCoolDown /= 5;
         for (int i = 0; i < 15; i++)
         {
             yield return new WaitForSeconds(0.2f);
@@ -129,7 +125,6 @@ public class ItemsSpawner : MonoBehaviour
         }
         yield return new WaitForSeconds(5);
         _storage.conveyorSpeed = conveyorSpeed;
-        _buffIsWorking = false;
         _unloadingPanelUpgrades.SetActive(false);
     }
 }

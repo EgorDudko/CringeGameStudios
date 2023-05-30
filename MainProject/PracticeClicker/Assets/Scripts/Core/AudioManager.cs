@@ -17,7 +17,13 @@ public class AudioManager : MonoBehaviour
     {
         if (instance is not null && instance != this)
         {
+            if (_music is not null) Destroy(_music.gameObject);
             Destroy(gameObject);
+        }
+        else if(instance is null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -27,6 +33,11 @@ public class AudioManager : MonoBehaviour
         _music.transform.parent = null;
 
         _music.volume = MusicVolume;
+        if (_scenesMusic[0] != null) 
+        {
+            _music.clip = _scenesMusic[0];
+            _music.Play();
+        }
 
         DontDestroyOnLoad(_music.gameObject);
     }
@@ -54,11 +65,12 @@ public class AudioManager : MonoBehaviour
     public void MusicVolumeChange(float value)
     {
         MusicVolume = value;
+        Debug.Log((_music != null) + " " + _music.volume);
     }
     public void SoundVolumeChange(float value)
     {
         SoundVolume = value;
-        OnSoundVolumeChange.Invoke();
+        OnSoundVolumeChange?.Invoke();
     }
 
 
@@ -98,5 +110,10 @@ public class AudioManager : MonoBehaviour
             PlayerPrefs.SetFloat("Music", (float)value);
             _music.volume = PlayerPrefs.GetFloat("Music", 0.15f);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.Save();
     }
 }

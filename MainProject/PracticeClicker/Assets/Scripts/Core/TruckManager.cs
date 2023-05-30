@@ -25,6 +25,7 @@ public class TruckManager : MonoBehaviour
         _boxes = new List<GameObject>();
         _isMoving = false;
         _boxCount = 0;
+        _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
         _capacityText.text = "0/"+ _storage.truckCapacity;
         _sendButton.onClick.AddListener(SendGoods);
         _blockingCollider.SetActive(false);
@@ -32,7 +33,12 @@ public class TruckManager : MonoBehaviour
 
     private IEnumerator SendTruck()
     {
-        if (_cosingDoor != null) StopCoroutine(_cosingDoor);
+        if (_cosingDoor != null)
+        {
+            StopCoroutine(_cosingDoor);
+            _cosingDoor = null;
+        }
+
         _isMoving = true;
         _blockingCollider.SetActive(true);
         float t = 0;
@@ -47,8 +53,12 @@ public class TruckManager : MonoBehaviour
         _boxCount = 0;
         _blockingCollider.SetActive(false);
         t = 0;
-        if (_cosingDoor != null) StopCoroutine(_cosingDoor);
         _boxes = new List<GameObject>();
+        if (_cosingDoor != null)
+        {
+            StopCoroutine(_cosingDoor);
+            _cosingDoor = null;
+        }
         while (transform.position.x < _insidePosition.position.x - 0.4f)
         {
             _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.01f);
@@ -87,6 +97,7 @@ public class TruckManager : MonoBehaviour
             _boxes.Add(other.gameObject);
             other.transform.parent = transform;
             if(_storage.truckCapacity >= _boxCount) _capacityText.text = (_boxCount++) + "/" + _storage.truckCapacity;
+
             if(_cosingDoor == null && _storage.truckCapacity < _boxCount)
             {
                 _cosingDoor = StartCoroutine(CloseDoor());
