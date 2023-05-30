@@ -71,6 +71,7 @@ public class TruckManager : MonoBehaviour
         }
 
     }
+
     private void SendGoods()
     {
         if (!_isMoving)
@@ -92,6 +93,7 @@ public class TruckManager : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == _boxLayer)
