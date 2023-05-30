@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4196990126913638}
   - component: {fileID: 33222834803495694}
   - component: {fileID: 23646657638549064}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Mesh_Wall_Standar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4076840784717490}
   - component: {fileID: 65752823325596824}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: wall(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

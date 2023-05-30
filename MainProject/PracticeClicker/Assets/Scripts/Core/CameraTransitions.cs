@@ -56,7 +56,7 @@ public class CameraTransitions : MonoBehaviour
     private IEnumerator CabinetTransition()
     {
         _outline.SetActive(true);
-        Camera.main.nearClipPlane = 1;
+        Camera.main.nearClipPlane = 2;
         while (gameObject.transform.position != _cabinetCameraPosition.position & gameObject.transform.rotation != _cabinetCameraPosition.rotation)
         {
             Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 4, 0.1f);
