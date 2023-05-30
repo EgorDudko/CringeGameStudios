@@ -25,38 +25,14 @@ public class ClickDetector : MonoBehaviour
     private Ray _ray;
     private RaycastHit _hit;
     private float _lastClickPastTime;
-    private MeshRenderer _hintMeshRender;
-    private TextMeshProUGUI _hintTextMesh;
-    private Color _hintColor;
-    private Color _hintTextColor;
-    private bool _hintIsCliked;
-    private bool _hintIsAppearing;
-
 
 
     void Start()
     {
         Camera.main.orthographic = true;
         Camera.main.nearClipPlane = -2f;
-        _hintIsCliked = false;
         _lastClickPastTime = 100;
         _mainCamera = Camera.main;
-        _hintMeshRender = GetComponent<MeshRenderer>();
-        _hintTextMesh = _hintText.GetComponent<TextMeshProUGUI>();
-        _hintColor = _hintMeshRender.material.color;
-        _hintTextColor = _hintTextMesh.color;
-    }
-
-    private void FixedUpdate()
-    {
-        if (_lastClickPastTime <= _timeForHint && _hintMeshRender.material.color.a != 0 && _hintIsCliked || !_hintIsAppearing && _lastClickPastTime <= _timeForHint)
-        {
-            _hintIsAppearing = false;
-            _hintColor.a = Mathf.Lerp(_hintColor.a, 0, _lerpSpeed * 2);
-            _hintMeshRender.material.color = _hintColor;
-            _hintTextColor.a = Mathf.Lerp(_hintTextColor.a, 0, _lerpSpeed * 2);
-            _hintTextMesh.color = _hintTextColor;
-        }
     }
     void Update()
     {
@@ -66,8 +42,9 @@ public class ClickDetector : MonoBehaviour
             if (_lastClickPastTime <= _autoclickCheatDetector & Time.deltaTime == 1)
             {
                 Debug.Log("AUTO-CLICK DETECTED!!!!!");
+                _autoclickPanel.SetActive(true);
+                _storage.money = 0;
             }
-
             if (!_itemDetectorCoolDown._isClickCooldown)
             {
                 _ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -75,11 +52,7 @@ public class ClickDetector : MonoBehaviour
                 if (Physics.Raycast(_ray, out _hit, 100))
                 {
                     TabletTransition t;
-                    if (_hit.transform.GetComponent<ClickDetector>())
-                    {
-                        _hintIsCliked = true;
-                    }
-                    else if (_hit.transform.GetComponent<ButtonExit>())
+                    if (_hit.transform.GetComponent<ButtonExit>())
                     {
                         Application.Quit();
                     }
@@ -99,14 +72,8 @@ public class ClickDetector : MonoBehaviour
                     {
                         t.MoveTablet();
                     }
-                    else
-                        _hintIsCliked = false;
                 }
-                else
-                    _hintIsCliked = false;
             }
-            else
-                _hintIsCliked = false;
 
             _lastClickPastTime = 0f;
         }
