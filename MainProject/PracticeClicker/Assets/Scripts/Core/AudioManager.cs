@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
         _music.transform.parent = null;
 
         _music.volume = MusicVolume;
-        if (_scenesMusic[0] != null) 
+        if (_scenesMusic is not null && _scenesMusic.Length > 0) 
         {
             _music.clip = _scenesMusic[0];
             _music.Play();
@@ -44,7 +44,7 @@ public class AudioManager : MonoBehaviour
     
     private void OnLevelWasLoaded(int level)
     {
-        if (_scenesMusic[level] != null)
+        if (_scenesMusic.Length > level && _scenesMusic[level] != null)
         {
             if (_music.clip is null || _scenesMusic[level].name != _music.clip.name)
             {
@@ -65,7 +65,6 @@ public class AudioManager : MonoBehaviour
     public void MusicVolumeChange(float value)
     {
         MusicVolume = value;
-        Debug.Log((_music != null) + " " + _music.volume);
     }
     public void SoundVolumeChange(float value)
     {

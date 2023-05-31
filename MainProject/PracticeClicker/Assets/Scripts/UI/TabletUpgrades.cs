@@ -17,6 +17,7 @@ public class TabletUpgrades : MonoBehaviour
     [SerializeField] private GameObject _capacityFullUpdate;
     [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private Storage _storage;
+    [SerializeField] private AudioSource _buyAudioSource;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class TabletUpgrades : MonoBehaviour
             _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
             _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
+            _buyAudioSource.Play();
         }
         if (_storage.speedLevel + 1 >= _storage.speedUpgradesCosts.Length)
         {
@@ -59,6 +61,7 @@ public class TabletUpgrades : MonoBehaviour
             _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
             _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
+            _buyAudioSource.Play();
         }
         if (_storage.valueLevel + 1 >= _storage.valueUpgradesCosts.Length)
         {
@@ -76,6 +79,7 @@ public class TabletUpgrades : MonoBehaviour
             _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
             _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
             _moneyText.text = "Money: " + _storage.money + " $";
+            _buyAudioSource.Play();
         }
         if (_storage.truckCapacityLevel + 1 >= _storage.truckCapacityCosts.Length)
         {

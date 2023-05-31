@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class ButtonCabinet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Component for object identification
 }
