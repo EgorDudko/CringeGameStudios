@@ -123,6 +123,70 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1426597535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426597536}
+  - component: {fileID: 1426597538}
+  - component: {fileID: 1426597537}
+  m_Layer: 0
+  m_Name: BoxEater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1426597536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426597535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.09, y: 0, z: -5.53}
+  m_LocalScale: {x: 1, y: 16.732, z: 9.243}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1557962866}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1426597537
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426597535}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1426597538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426597535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0080d2a99b2a2e94eb7810661fa10ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layer: 6
+--- !u!4 &1557962866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3581860401121075330, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+  m_PrefabInstance: {fileID: 799323153548060380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &799323153548060380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,6 +242,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7674655855081356723, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: _truckSendClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 69bb1117999ba36439d8999aa7a36316, type: 3}
+    - target: {fileID: 7674655855081356723, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: _truckStopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 854f5bbfd668a2b4fa7ae2efb8e8850c, type: 3}
     - target: {fileID: 8250138742274526327, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

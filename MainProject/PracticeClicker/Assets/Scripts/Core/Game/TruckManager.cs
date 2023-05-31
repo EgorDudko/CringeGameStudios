@@ -18,6 +18,8 @@ public class TruckManager : MonoBehaviour
     [SerializeField] private Storage _storage;
     [SerializeField] private AudioSource _clickAudioSource;
     [SerializeField] private AudioSource _truckAudioSource;
+    [SerializeField] private AudioClip _truckSendClip;
+    [SerializeField] private AudioClip _truckStopClip;
     [SerializeField] private AudioSource _cashAudioSource;
 
     private int _boxCount;
@@ -38,6 +40,7 @@ public class TruckManager : MonoBehaviour
 
     private IEnumerator SendTruck()
     {
+        _truckAudioSource.clip = _truckSendClip;
         _truckAudioSource.Play();
         if (_cosingDoor != null)
         {
@@ -56,7 +59,7 @@ public class TruckManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         _capacityText.text = "0/" + _storage.truckCapacity;
-        if (_boxCount > 0) 
+        if (_boxCount > 0)
         { 
             _cashAudioSource.Play();
             _storage.money += _boxCount *_storage.itemsValue;
@@ -77,12 +80,13 @@ public class TruckManager : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, _insidePosition.position, 0.06f);
             yield return new WaitForFixedUpdate();
         }
+        _truckAudioSource.clip = _truckStopClip;
+        _truckAudioSource.Play();
         while (!(_door.rotation.eulerAngles.z < 350 && _door.rotation.eulerAngles.z > 300))
         {
             _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.06f);
             yield return new WaitForFixedUpdate();
         }
-        _truckAudioSource.Stop();
         _isMoving = false;
     }
     private IEnumerator CloseDoor()
@@ -117,14 +121,6 @@ public class TruckManager : MonoBehaviour
             {
                 _cosingDoor = StartCoroutine(CloseDoor());
             }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == _boxLayer)
-        {
-            other.transform.parent = transform;
         }
     }
 }
