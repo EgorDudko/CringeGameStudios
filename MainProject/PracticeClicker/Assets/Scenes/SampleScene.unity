@@ -403,6 +403,30 @@ PrefabInstance:
       propertyPath: _autoclickPanel
       value: 
       objectReference: {fileID: 799323153548060383}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: valueUpgrades.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: valueUpgradesCosts.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: valueUpgradesCosts.Array.data[0]
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: valueUpgradesCosts.Array.data[1]
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: valueUpgradesCosts.Array.data[2]
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: valueUpgradesCosts.Array.data[3]
+      value: 1200
+      objectReference: {fileID: 0}
     - target: {fileID: 2372868601996439514, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
       propertyPath: m_Name
       value: FirstScenePrefab
