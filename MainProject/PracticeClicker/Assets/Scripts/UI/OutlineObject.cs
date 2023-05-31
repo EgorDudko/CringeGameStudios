@@ -5,7 +5,6 @@ using UnityEngine;
 public class OutlineObject : MonoBehaviour
 {
     [SerializeField] private MeshRenderer[] _meshRenderers;
-    [SerializeField] private Color _color;
 
     private Color[] _deafultColors;
 

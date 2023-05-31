@@ -20,7 +20,7 @@ public class WorkerManager : MonoBehaviour
     {
         for (int i = 0; i < _workersPositions.Length; i++)
         {
-            _workersCosts[i].text = _workerValue[i].ToString();
+            _workersCosts[i].text = _workerValue[i].ToString() + "$";
         }
 
         StartCoroutine(AutoClicking());

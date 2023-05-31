@@ -10,12 +10,15 @@ public class TruckManager : MonoBehaviour
     [SerializeField] private Button _sendButton;
     [SerializeField] private GameObject _blockingCollider;
     [SerializeField] private TMP_Text _capacityText;
+    [SerializeField] private TMP_Text _moneyText;
+    [SerializeField] private string _changeMoneyText;
     [SerializeField] private int _boxLayer;
     [SerializeField] private Transform _outsidePosition;
     [SerializeField] private Transform _insidePosition;
     [SerializeField] private Storage _storage;
     [SerializeField] private AudioSource _clickAudioSource;
     [SerializeField] private AudioSource _truckAudioSource;
+    [SerializeField] private AudioSource _cashAudioSource;
 
     private int _boxCount;
     private bool _isMoving;
@@ -53,6 +56,12 @@ public class TruckManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         _capacityText.text = "0/" + _storage.truckCapacity;
+        if (_boxCount > 0) 
+        { 
+            _cashAudioSource.Play();
+            _storage.money += _boxCount *_storage.itemsValue;
+            _moneyText.text = _changeMoneyText + _storage.money + "$";
+        }
         _boxCount = 0;
         _blockingCollider.SetActive(false);
         t = 0;
@@ -101,7 +110,8 @@ public class TruckManager : MonoBehaviour
         {
             _boxes.Add(other.gameObject);
             other.transform.parent = transform;
-            if(_storage.truckCapacity >= _boxCount) _capacityText.text = (_boxCount++) + "/" + _storage.truckCapacity;
+            _boxCount++;
+            if (_storage.truckCapacity >= _boxCount) _capacityText.text = _boxCount + "/" + _storage.truckCapacity;
 
             if(_cosingDoor == null && _storage.truckCapacity < _boxCount)
             {
