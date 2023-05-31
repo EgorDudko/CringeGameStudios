@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BuffButton : MonoBehaviour
 {
-
+    //Component for object identification
 }
