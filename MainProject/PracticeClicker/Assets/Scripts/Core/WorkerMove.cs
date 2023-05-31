@@ -12,29 +12,57 @@ public class WorkerMove : MonoBehaviour
    [SerializeField] private Transform[] _stopPoints;
    [SerializeField] private Transform[] _endPoints;
    [SerializeField] private float _speed = 2;
-   [SerializeField] private GameObject _prevWorker;
-   [SerializeField] private GameObject _nextWorker;
-
-    private int _n;
+   
+ 
 
 
     private void Start()
     {
-        transform.position = _startPos[0].position;
-      
-        StartCoroutine(FirstDirection());
+        if (gameObject.layer == 10)
+        {
+            transform.position = _startPos[0].position;
+          
+            StartCoroutine(FirstDirection());
+            
+        }
+        if (gameObject.layer == 11)
+        {
+            transform.position = _startPos[1].position;
+          
+            StartCoroutine(SecondDirection());
+            
+        }
+        if (gameObject.layer == 12)
+        {
+            transform.position = _startPos[2].position;
+          
+            StartCoroutine(ThirdDirection());
+            
+        }
     }
 
     private IEnumerator FirstDirection()
     {
-      while (transform.position != _stopPoints[0].transform.position)
+        int _n = Random.Range(0, 1);
+      while (transform.position != _stopPoints[0].transform.position && transform.position != _stopPoints[3].transform.position) 
       {
-         transform.position =
-            Vector3.MoveTowards(transform.position, _stopPoints[0].position, _speed * Time.deltaTime);
-         yield return new WaitForSeconds(Time.deltaTime);
+          if (_n == 0)
+          {
+             transform.position =
+                Vector3.MoveTowards(transform.position, _stopPoints[0].position, _speed * Time.deltaTime);
+             yield return new WaitForSeconds(Time.deltaTime);
+              
+          }
+          else
+          {
+              transform.position =
+                  Vector3.MoveTowards(transform.position, _stopPoints[3].position, _speed * Time.deltaTime);
+              yield return new WaitForSeconds(Time.deltaTime);
+              
+          }
       }
 
-         yield return new WaitForSeconds(2);
+         yield return new WaitForSeconds(Random.Range(1,4));
             int n = Random.Range(0, 2);
          while (transform.position != _endPoints[0].position && transform.position != _startPos[0].position )
          {
@@ -55,22 +83,36 @@ public class WorkerMove : MonoBehaviour
          }
 
 
-        _prevWorker.SetActive(true);
-        transform.position = _startPos[1].position;
-        if (_nextWorker.transform.position == _startPos[2].position || _nextWorker.transform.position == _endPoints[1].position || _nextWorker.transform.position != _stopPoints[1].position)
-            StartCoroutine(SecondDirection());
+        
+            
+         yield return new WaitForSeconds(Random.Range(0,2));
+            StartCoroutine(FirstDirection());
+        
+        
     }
    
    private IEnumerator SecondDirection()
    {
-        while (transform.position != _stopPoints[1].transform.position)
-        {
-            transform.position =
-               Vector3.MoveTowards(transform.position, _stopPoints[1].position, _speed * Time.deltaTime);
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
+       int _n = Random.Range(0, 1);
+       while (transform.position != _stopPoints[1].transform.position && transform.position != _stopPoints[3].transform.position) 
+       {
+           if (_n == 0)
+           {
+               transform.position =
+                   Vector3.MoveTowards(transform.position, _stopPoints[1].position, _speed * Time.deltaTime);
+               yield return new WaitForSeconds(Time.deltaTime);
+              
+           }
+           else
+           {
+               transform.position =
+                   Vector3.MoveTowards(transform.position, _stopPoints[3].position, _speed * Time.deltaTime);
+               yield return new WaitForSeconds(Time.deltaTime);
+              
+           }
+       }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(Random.Range(1,4));
         int n = Random.Range(0, 2);
 
         while (transform.position != _endPoints[1].position && transform.position != _startPos[1].position)
@@ -91,21 +133,34 @@ public class WorkerMove : MonoBehaviour
             }
         }
 
-        transform.position = _startPos[2].position;
-        if (_nextWorker.transform.position == _startPos[0].position || _nextWorker.transform.position == _endPoints[2].position || _nextWorker.transform.position != _stopPoints[2].position)
-            StartCoroutine(ThirdDirection());
+        yield return new WaitForSeconds(Random.Range(0,2));
+            StartCoroutine(SecondDirection());
+        
+       
     }
 
     private IEnumerator ThirdDirection()
    {
-        while (transform.position != _stopPoints[2].transform.position)
-        {
-            transform.position =
-               Vector3.MoveTowards(transform.position, _stopPoints[2].position, _speed * Time.deltaTime);
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
+       int _n = Random.Range(0, 1);
+       while (transform.position != _stopPoints[2].transform.position && transform.position != _stopPoints[3].transform.position) 
+       {
+           if (_n == 0)
+           {
+               transform.position =
+                   Vector3.MoveTowards(transform.position, _stopPoints[2].position, _speed * Time.deltaTime);
+               yield return new WaitForSeconds(Time.deltaTime);
+              
+           }
+           else
+           {
+               transform.position =
+                   Vector3.MoveTowards(transform.position, _stopPoints[3].position, _speed * Time.deltaTime);
+               yield return new WaitForSeconds(Time.deltaTime);
+              
+           }
+       }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(Random.Range(1,4));
         int n = Random.Range(0, 2);
         while (transform.position != _endPoints[2].position && transform.position != _startPos[2].position)
         {
@@ -125,8 +180,8 @@ public class WorkerMove : MonoBehaviour
             }
         }
 
-        transform.position = _startPos[0].position;
-        if (_nextWorker.transform.position == _startPos[1].position || _nextWorker.transform.position == _endPoints[0].position || _nextWorker.transform.position != _stopPoints[0].position)
-            StartCoroutine(FirstDirection());
+        yield return new WaitForSeconds(Random.Range(0,2));
+            StartCoroutine(ThirdDirection());
+        
     }
 }
