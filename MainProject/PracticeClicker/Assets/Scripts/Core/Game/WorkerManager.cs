@@ -12,6 +12,7 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] private ItemsSpawner _itemSpawner;
     [SerializeField] private TMP_Text[] _workersCosts;
     [SerializeField] private Storage _storage;
+    [SerializeField] private AudioSource _buyAudioSource;
 
     private int _workersCount;
 
@@ -34,6 +35,7 @@ public class WorkerManager : MonoBehaviour
             Button workerPanel = _workersCosts[workerNumber].transform.parent.GetComponent<Button>();
             workerPanel.interactable = false;
             _workersCosts[workerNumber].text = "Hired";
+            _buyAudioSource.Play();
         }
     }
 

@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class ClickDetector : MonoBehaviour
 {
-    [Header("---Hint for click---")]
-    [SerializeField] private float _lerpSpeed;
-    [SerializeField] private float _timeForHint;
-    [SerializeField] private float _hintTransparancy;
-    [SerializeField] private float _hintTextTransparancy;
-    [SerializeField] private TMP_Text _hintText;
     [Header("---Cheat detector---")]
     [SerializeField] private float _autoclickCheatDetector;
     [SerializeField] private GameObject _autoclickPanel;

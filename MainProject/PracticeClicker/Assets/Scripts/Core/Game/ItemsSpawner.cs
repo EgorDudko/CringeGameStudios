@@ -24,6 +24,7 @@ public class ItemsSpawner : MonoBehaviour
     [SerializeField] private GameObject _unloadingPanel;
     [SerializeField] private GameObject _unloadingPanelUpgrades;
     [SerializeField] private string[] _addresses;
+    [SerializeField] private AudioSource _clickAudioSource;
 
     private float _timeForNextBuff;
     private bool _isSpawning;
@@ -82,6 +83,7 @@ public class ItemsSpawner : MonoBehaviour
             _unloadingPanel.SetActive(true);
             _spawningItemPrefab = item;
             _isSpawning = true;
+            _clickAudioSource.Play();
         }       
     }
 

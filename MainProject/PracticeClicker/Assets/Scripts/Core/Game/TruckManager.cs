@@ -14,6 +14,8 @@ public class TruckManager : MonoBehaviour
     [SerializeField] private Transform _outsidePosition;
     [SerializeField] private Transform _insidePosition;
     [SerializeField] private Storage _storage;
+    [SerializeField] private AudioSource _clickAudioSource;
+    [SerializeField] private AudioSource _truckAudioSource;
 
     private int _boxCount;
     private bool _isMoving;
@@ -33,6 +35,7 @@ public class TruckManager : MonoBehaviour
 
     private IEnumerator SendTruck()
     {
+        _truckAudioSource.Play();
         if (_cosingDoor != null)
         {
             StopCoroutine(_cosingDoor);
@@ -70,6 +73,7 @@ public class TruckManager : MonoBehaviour
             _door.rotation = Quaternion.Lerp(_door.rotation, Quaternion.Euler(0, 0, -14), 0.06f);
             yield return new WaitForFixedUpdate();
         }
+        _truckAudioSource.Stop();
         _isMoving = false;
     }
     private IEnumerator CloseDoor()
@@ -87,6 +91,7 @@ public class TruckManager : MonoBehaviour
         if (!_isMoving)
         {
             StartCoroutine(SendTruck());
+            _clickAudioSource.Play();
         }
     }
 
