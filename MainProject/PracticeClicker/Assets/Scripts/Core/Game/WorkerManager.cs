@@ -28,7 +28,7 @@ public class WorkerManager : MonoBehaviour
 
     public void SpawnWorker(int workerNumber)
     {
-        if(_storage.money >= _workerValue[workerNumber])
+        if(_storage.Money >= _workerValue[workerNumber])
         {
             _workersCount++;
             Instantiate(_workersPrefabs[workerNumber], _workersPositions[workerNumber]);

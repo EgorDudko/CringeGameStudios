@@ -20,6 +20,7 @@ public class ItemsSpawner : MonoBehaviour
     [SerializeField] private Transform _spawnItemList;
     [SerializeField] private GameObject _buffPanel;
     [SerializeField] private TMP_Text _buffTimeText;
+    [SerializeField] private ConveyorScript[] _conveyorForBuff;
     [SerializeField] private Button _buffButton;
     [SerializeField] private GameObject _unloadingPanel;
     [SerializeField] private GameObject _unloadingPanelUpgrades;
@@ -115,9 +116,10 @@ public class ItemsSpawner : MonoBehaviour
 
     private IEnumerator BuffCoroutine()
     {
-        _unloadingPanelUpgrades.SetActive(true);
-        float conveyorSpeed = _storage.conveyorSpeed;
-        _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedUpgrades.Length-1];
+        for (int i = 0; i< _conveyorForBuff.Length; i++)
+        {
+            _conveyorForBuff[i].SpeedUp(8);
+        }
         for (int i = 0; i < 20; i++)
         {
             yield return new WaitForSeconds(0.2f);
@@ -126,7 +128,5 @@ public class ItemsSpawner : MonoBehaviour
             Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn3.transform.position, _BuffSpawn3.transform.rotation);
         }
         yield return new WaitForSeconds(3);
-        _storage.conveyorSpeed = conveyorSpeed;
-        _unloadingPanelUpgrades.SetActive(false);
     }
 }

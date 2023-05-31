@@ -6,7 +6,6 @@ public class ItemDetectorCoolDown : MonoBehaviour
 {
     [SerializeField] private Material _redIndicator;
     [SerializeField] private Material _greenIndicator;
-    [SerializeField] private GameObject _cooldownColoredIndicator;
 
     public bool _isClickCooldown;
     private int _itemsInTrigger;

@@ -41,7 +41,7 @@ public class ClickDetector : MonoBehaviour
                     Debug.Log("AUTO-CLICK DETECTED!!!!!");
                     _autoclickPanel.SetActive(true);
                     Time.timeScale = 0;
-                    _storage.money = 0;
+                    _storage.Money = 0;
                 }
             }
             else
