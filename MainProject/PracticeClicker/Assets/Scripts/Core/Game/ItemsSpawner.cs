@@ -117,15 +117,15 @@ public class ItemsSpawner : MonoBehaviour
     {
         _unloadingPanelUpgrades.SetActive(true);
         float conveyorSpeed = _storage.conveyorSpeed;
-        _storage.conveyorSpeed = _storage.speedUpgrades[0] * 5;
-        for (int i = 0; i < 15; i++)
+        _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedUpgrades.Length-1];
+        for (int i = 0; i < 20; i++)
         {
             yield return new WaitForSeconds(0.2f);
             Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn1.transform.position, _BuffSpawn1.transform.rotation);
             Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn2.transform.position, _BuffSpawn2.transform.rotation);
             Instantiate(_items[Random.Range(0, _items.Length)], _BuffSpawn3.transform.position, _BuffSpawn3.transform.rotation);
         }
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         _storage.conveyorSpeed = conveyorSpeed;
         _unloadingPanelUpgrades.SetActive(false);
     }

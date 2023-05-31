@@ -803,6 +803,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 799323152365926529, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 85.441
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152365926529, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000016539
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152365926529, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00051117
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152365926529, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152365926530, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152955965168, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_Size.x
+      value: 0.25433078
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152955965168, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_Size.y
+      value: 0.34560537
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152955965168, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0996774
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152955965168, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_Center.y
+      value: -0.06741786
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323152955965169, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153597926471, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.182
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: speedUpgrades.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 799323153621589450, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: speedUpgradesCosts.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2372868601996439514, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
       propertyPath: m_Name
       value: FirstScenePrefab

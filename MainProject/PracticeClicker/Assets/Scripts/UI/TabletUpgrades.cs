@@ -45,7 +45,7 @@ public class TabletUpgrades : MonoBehaviour
             _moneyText.text = "Money: " + _storage.money + " $";
             _buyAudioSource.Play();
         }
-        if (_storage.speedLevel + 1 >= _storage.speedUpgradesCosts.Length)
+        if (_storage.speedLevel + 1 >= _storage.speedUpgrades.Length)
         {
             _speedUpdateButton.interactable = false;
             _speedFullUpdate.SetActive(true);
@@ -63,7 +63,7 @@ public class TabletUpgrades : MonoBehaviour
             _moneyText.text = "Money: " + _storage.money + " $";
             _buyAudioSource.Play();
         }
-        if (_storage.valueLevel + 1 >= _storage.valueUpgradesCosts.Length)
+        if (_storage.valueLevel + 1 >= _storage.valueUpgrades.Length)
         {
             _valueUpdateButton.interactable = false;
             _valueFullUpdate.SetActive(true);
@@ -81,7 +81,7 @@ public class TabletUpgrades : MonoBehaviour
             _moneyText.text = "Money: " + _storage.money + " $";
             _buyAudioSource.Play();
         }
-        if (_storage.truckCapacityLevel + 1 >= _storage.truckCapacityCosts.Length)
+        if (_storage.truckCapacityLevel + 1 >= _storage.truckCapacityUpgrades.Length)
         {
             _capacityUpdateButton.interactable = false;
             _capacityFullUpdate.SetActive(true);
