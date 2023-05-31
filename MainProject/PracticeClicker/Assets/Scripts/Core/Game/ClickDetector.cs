@@ -17,10 +17,12 @@ public class ClickDetector : MonoBehaviour
     private Ray _ray;
     private RaycastHit _hit;
     private float _lastClickPastTime;
+    private int _fastClickCount;
 
 
     void Start()
     {
+        _fastClickCount = 0;
         Camera.main.orthographic = true;
         Camera.main.nearClipPlane = -2f;
         _lastClickPastTime = 100;
@@ -31,11 +33,20 @@ public class ClickDetector : MonoBehaviour
         _lastClickPastTime += Time.deltaTime;
         if (Input.GetMouseButtonDown(0))
         {
-            if (_lastClickPastTime <= _autoclickCheatDetector & Time.deltaTime == 1)
+            if (_lastClickPastTime <= _autoclickCheatDetector && Time.timeScale == 1)
             {
-                Debug.Log("AUTO-CLICK DETECTED!!!!!");
-                _autoclickPanel.SetActive(true);
-                _storage.money = 0;
+                _fastClickCount++;
+                if (_fastClickCount>5) 
+                {
+                    Debug.Log("AUTO-CLICK DETECTED!!!!!");
+                    _autoclickPanel.SetActive(true);
+                    Time.timeScale = 0;
+                    _storage.money = 0;
+                }
+            }
+            else
+            {
+                _fastClickCount = 0;
             }
             if (!_itemDetectorCoolDown._isClickCooldown)
             {
@@ -47,7 +58,7 @@ public class ClickDetector : MonoBehaviour
                     if (_hit.transform.GetComponent<ButtonExit>())
                     {
                         _clickAudioSource.Play();
-                        Application.Quit();
+                        Exit();
                     }
                     else if (_hit.transform.GetComponent<ButtonCabinet>())
                     {
@@ -74,5 +85,9 @@ public class ClickDetector : MonoBehaviour
 
             _lastClickPastTime = 0f;
         }
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
