@@ -15,7 +15,6 @@ public class TabletUpgrades : MonoBehaviour
     [SerializeField] private GameObject _speedFullUpdate;
     [SerializeField] private GameObject _valueFullUpdate;
     [SerializeField] private GameObject _capacityFullUpdate;
-    [SerializeField] private TMP_Text _moneyText;
     [SerializeField] private Storage _storage;
     [SerializeField] private AudioSource _buyAudioSource;
 
@@ -25,27 +24,26 @@ public class TabletUpgrades : MonoBehaviour
         _valueUpdateButton.onClick.AddListener(ValueUpgrade);
         _capacityUpdateButton.onClick.AddListener(CapacityUpgrade);
 
-        _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
-        _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
-        _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
+        _storage.TruckCapacity = _storage.TruckCapacityUpgrades[_storage.TruckCapacityLevel];
+        _storage.ItemsValue = _storage.ValueUpgrades[_storage.ValueLevel];
+        _storage.conveyorSpeed = _storage.SpeedUpgrades[_storage.SpeedLevel];
 
-        _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString() + " $";
-        _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString() + " $";
-        _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
+        _speedUpgradeCostText.text = _storage.SpeedUpgradesCosts[_storage.SpeedLevel].ToString() + " $";
+        _valueUpgradeCostText.text = _storage.ValueUpgradesCosts[_storage.ValueLevel].ToString() + " $";
+        _capacityUpgradeCostText.text = _storage.TruckCapacityCosts[_storage.TruckCapacityLevel].ToString() + " $";
     }
 
     private void SpeedUpgrade()
     {
-        if (_storage.money >= _storage.speedUpgradesCosts[_storage.speedLevel])
+        if (_storage.Money >= _storage.SpeedUpgradesCosts[_storage.SpeedLevel])
         {
-            _storage.money -= _storage.speedUpgradesCosts[_storage.speedLevel];
-            _storage.speedLevel++;
-            _storage.conveyorSpeed = _storage.speedUpgrades[_storage.speedLevel];
-            _speedUpgradeCostText.text = _storage.speedUpgradesCosts[_storage.speedLevel].ToString() + " $";
-            _moneyText.text = "Money: " + _storage.money + " $";
+            _storage.Money -= _storage.SpeedUpgradesCosts[_storage.SpeedLevel];
+            _storage.SpeedLevel++;
+            _storage.conveyorSpeed = _storage.SpeedUpgrades[_storage.SpeedLevel];
+            _speedUpgradeCostText.text = _storage.SpeedUpgradesCosts[_storage.SpeedLevel].ToString() + " $";
             _buyAudioSource.Play();
         }
-        if (_storage.speedLevel + 1 >= _storage.speedUpgradesCosts.Length)
+        if (_storage.SpeedLevel + 1 >= _storage.SpeedUpgrades.Length)
         {
             _speedUpdateButton.interactable = false;
             _speedFullUpdate.SetActive(true);
@@ -54,16 +52,15 @@ public class TabletUpgrades : MonoBehaviour
 
     private void ValueUpgrade()
     {
-        if (_storage.money >= _storage.valueUpgradesCosts[_storage.valueLevel])
+        if (_storage.Money >= _storage.ValueUpgradesCosts[_storage.ValueLevel])
         {
-            _storage.money -= _storage.valueUpgradesCosts[_storage.valueLevel];
-            _storage.valueLevel++;
-            _storage.itemsValue = _storage.valueUpgrades[_storage.valueLevel];
-            _valueUpgradeCostText.text = _storage.valueUpgradesCosts[_storage.valueLevel].ToString() + " $";
-            _moneyText.text = "Money: " + _storage.money + " $";
+            _storage.Money -= _storage.ValueUpgradesCosts[_storage.ValueLevel];
+            _storage.ValueLevel++;
+            _storage.ItemsValue = _storage.ValueUpgrades[_storage.ValueLevel];
+            _valueUpgradeCostText.text = _storage.ValueUpgradesCosts[_storage.ValueLevel].ToString() + " $";
             _buyAudioSource.Play();
         }
-        if (_storage.valueLevel + 1 >= _storage.valueUpgradesCosts.Length)
+        if (_storage.ValueLevel + 1 >= _storage.ValueUpgrades.Length)
         {
             _valueUpdateButton.interactable = false;
             _valueFullUpdate.SetActive(true);
@@ -72,16 +69,15 @@ public class TabletUpgrades : MonoBehaviour
 
     private void CapacityUpgrade()
     {
-        if (_storage.money >= _storage.truckCapacityCosts[_storage.truckCapacityLevel])
+        if (_storage.Money >= _storage.TruckCapacityCosts[_storage.TruckCapacityLevel])
         {
-            _storage.money -= _storage.truckCapacityCosts[_storage.truckCapacityLevel];
-            _storage.truckCapacityLevel++;
-            _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
-            _capacityUpgradeCostText.text = _storage.truckCapacityCosts[_storage.truckCapacityLevel].ToString() + " $";
-            _moneyText.text = "Money: " + _storage.money + " $";
+            _storage.Money -= _storage.TruckCapacityCosts[_storage.TruckCapacityLevel];
+            _storage.TruckCapacityLevel++;
+            _storage.TruckCapacity = _storage.TruckCapacityUpgrades[_storage.TruckCapacityLevel];
+            _capacityUpgradeCostText.text = _storage.TruckCapacityCosts[_storage.TruckCapacityLevel].ToString() + " $";
             _buyAudioSource.Play();
         }
-        if (_storage.truckCapacityLevel + 1 >= _storage.truckCapacityCosts.Length)
+        if (_storage.TruckCapacityLevel + 1 >= _storage.TruckCapacityUpgrades.Length)
         {
             _capacityUpdateButton.interactable = false;
             _capacityFullUpdate.SetActive(true);

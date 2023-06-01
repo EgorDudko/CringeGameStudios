@@ -10,8 +10,6 @@ public class TruckManager : MonoBehaviour
     [SerializeField] private Button _sendButton;
     [SerializeField] private GameObject _blockingCollider;
     [SerializeField] private TMP_Text _capacityText;
-    [SerializeField] private TMP_Text _moneyText;
-    [SerializeField] private string _changeMoneyText;
     [SerializeField] private int _boxLayer;
     [SerializeField] private Transform _outsidePosition;
     [SerializeField] private Transform _insidePosition;
@@ -32,8 +30,8 @@ public class TruckManager : MonoBehaviour
         _boxes = new List<GameObject>();
         _isMoving = false;
         _boxCount = 0;
-        _storage.truckCapacity = _storage.truckCapacityUpgrades[_storage.truckCapacityLevel];
-        _capacityText.text = "0/"+ _storage.truckCapacity;
+        _storage.TruckCapacity = _storage.TruckCapacityUpgrades[_storage.TruckCapacityLevel];
+        _capacityText.text = "0/"+ _storage.TruckCapacity;
         _sendButton.onClick.AddListener(SendGoods);
         _blockingCollider.SetActive(false);
     }
@@ -58,12 +56,11 @@ public class TruckManager : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, _outsidePosition.position, Mathf.SmoothStep(0.0f, 1.0f, Mathf.SmoothStep(0.0f, 1.0f, t)));
             yield return new WaitForFixedUpdate();
         }
-        _capacityText.text = "0/" + _storage.truckCapacity;
+        _capacityText.text = "0/" + _storage.TruckCapacity;
         if (_boxCount > 0)
         { 
             _cashAudioSource.Play();
-            _storage.money += _boxCount *_storage.itemsValue;
-            _moneyText.text = _changeMoneyText + _storage.money + "$";
+            _storage.Money += _boxCount *_storage.ItemsValue;
         }
         _boxCount = 0;
         _blockingCollider.SetActive(false);
@@ -115,9 +112,9 @@ public class TruckManager : MonoBehaviour
             _boxes.Add(other.gameObject);
             other.transform.parent = transform;
             _boxCount++;
-            if (_storage.truckCapacity >= _boxCount) _capacityText.text = _boxCount + "/" + _storage.truckCapacity;
+            if (_storage.TruckCapacity >= _boxCount) _capacityText.text = _boxCount + "/" + _storage.TruckCapacity;
 
-            if(_cosingDoor == null && _storage.truckCapacity < _boxCount)
+            if(_cosingDoor == null && _storage.TruckCapacity < _boxCount)
             {
                 _cosingDoor = StartCoroutine(CloseDoor());
             }

@@ -7,13 +7,21 @@ public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _soundSlider;
+    [SerializeField] private AudioSource _clickAudioSource;
+    [SerializeField] private GameObject _tutorialManager;
 
-    void Start()
+    private void Start()
     {
         _musicSlider.value = AudioManager.instance.MusicVolume;
         _soundSlider.value = AudioManager.instance.SoundVolume;
 
         _musicSlider.onValueChanged.AddListener(AudioManager.instance.MusicVolumeChange);
         _soundSlider.onValueChanged.AddListener(AudioManager.instance.SoundVolumeChange);
+    }
+
+    public void PlayInstruction()
+    {
+        _clickAudioSource.Play();
+        _tutorialManager.SetActive(true);
     }
 }
