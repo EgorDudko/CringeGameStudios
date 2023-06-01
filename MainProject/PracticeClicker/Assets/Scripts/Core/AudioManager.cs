@@ -102,12 +102,12 @@ public class AudioManager : MonoBehaviour
     {
         get
         {
-            return PlayerPrefs.GetFloat("Music", 0.15f);
+            return PlayerPrefs.GetFloat("Music", 0.5f);
         }
         set
         {
             PlayerPrefs.SetFloat("Music", (float)value);
-            _music.volume = PlayerPrefs.GetFloat("Music", 0.15f);
+            _music.volume = PlayerPrefs.GetFloat("Music", 0.5f);
         }
     }
 
