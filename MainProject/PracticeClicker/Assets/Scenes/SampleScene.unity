@@ -201,3 +201,79 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 799323152994011636, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+--- !u!1 &799323153548060381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5102136107786538255, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+  m_PrefabInstance: {fileID: 799323153548060380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &799323153548060382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5102136107757027641, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+  m_PrefabInstance: {fileID: 799323153548060380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &799323153548060383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5102136107847873069, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+  m_PrefabInstance: {fileID: 799323153548060380}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &799323153548060384
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799323153548060381}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &799323153548060385
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799323153548060381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.37381625, y: 0.31806487, z: 0.29571843}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &799323153548060386
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799323153548060382}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &799323153548060387
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799323153548060383}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
