@@ -15,12 +15,14 @@ public class MainMenuUI : MonoBehaviour
     {
         _playButton.onClick.AddListener(StartGame);
         _tutorialButton.onClick.AddListener(LaunchTutorual);
-        _playButton.onClick.AddListener(ExitGame);
+        _ExitButton.onClick.AddListener(ExitGame);
+        if (Application.platform == RuntimePlatform.WebGLPlayer) 
+            _ExitButton.gameObject.SetActive(false);
     }
 
     private void StartGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadScene(1);
     }
 
     private void LaunchTutorual()

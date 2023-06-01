@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 574369980, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2372868601996439514, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
       propertyPath: m_Name
       value: FirstScenePrefab
@@ -194,5 +198,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 799323152994011636, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2fd23d35be9c4ca43952c6c3a499b183, type: 3}
