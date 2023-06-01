@@ -5,6 +5,16 @@ using TMPro;
 
 public class FunnelFreedUp : MonoBehaviour
 {
+    public int Cost 
+    {
+        get => _cost;
+        set
+        {
+            _cost = (_storage.ValueLevel + 1) * 100;
+            _costText.text = _cost + "$";
+        }
+    }
+
     [SerializeField] private int _maxCoolDownTime;
     [SerializeField] private Storage _storage;
     [SerializeField] private GameObject _timerCoolDown;
@@ -17,8 +27,7 @@ public class FunnelFreedUp : MonoBehaviour
 
     private void Awake()
     {
-        _cost = (_storage.ValueLevel+1) * 100;
-        _costText.text = _cost + "$";
+        Cost = 1;
     }
 
     public void FreedUp()
@@ -28,10 +37,9 @@ public class FunnelFreedUp : MonoBehaviour
             _storage.Money -= _cost;
             for (int i = 0; i < _speedConveyor.Length; i++)
             {
-                _speedConveyor[i].SpeedUp(15);
+                _speedConveyor[i].SpeedUp(20);
             }
-            _cost = (_storage.SpeedLevel + 1) * 100;
-            _costText.text = _cost + "$";
+            Cost = 1;
             StartCoroutine(CoolDownCoroutine());
         }
     }
