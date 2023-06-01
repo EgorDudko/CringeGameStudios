@@ -19,7 +19,13 @@ public class ConveyorScript : MonoBehaviour
         if (rb = other.GetComponent<Rigidbody>())
         {
             rb.freezeRotation = true;
-            if(_isSpeeded) rb.velocity = transform.right * _storage.SpeedUpgrades[_storage.SpeedUpgrades.Length - 1];
+            if (_isSpeeded)
+            {
+                if(_storage.ValueLevel != _storage.SpeedUpgrades.Length - 1)
+                    rb.velocity = transform.right * _storage.SpeedUpgrades[_storage.SpeedUpgrades.Length - 1];
+                else
+                    rb.velocity = transform.right * _storage.SpeedUpgrades[_storage.SpeedUpgrades.Length - 1]*1.2f;
+            }
             else rb.velocity = transform.right * _storage.conveyorSpeed;
         }
     }

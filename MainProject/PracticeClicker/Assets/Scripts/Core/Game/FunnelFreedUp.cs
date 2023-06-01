@@ -8,16 +8,17 @@ public class FunnelFreedUp : MonoBehaviour
     [SerializeField] private int _maxCoolDownTime;
     [SerializeField] private Storage _storage;
     [SerializeField] private GameObject _timerCoolDown;
+    [SerializeField] private GameObject _panelFreedUp;
     [SerializeField] private TMP_Text _timertext;
     [SerializeField] private TMP_Text _costText;
     [SerializeField] private ConveyorScript[] _speedConveyor;
 
     private int _cost;
 
-    private void Start()
+    private void Awake()
     {
-        _cost = (_storage.SpeedLevel+1) * 100;
-        _costText.text = _cost.ToString();
+        _cost = (_storage.ValueLevel+1) * 100;
+        _costText.text = _cost + "$";
     }
 
     public void FreedUp()
@@ -30,7 +31,7 @@ public class FunnelFreedUp : MonoBehaviour
                 _speedConveyor[i].SpeedUp(15);
             }
             _cost = (_storage.SpeedLevel + 1) * 100;
-            _costText.text = _cost.ToString();
+            _costText.text = _cost + "$";
             StartCoroutine(CoolDownCoroutine());
         }
     }
@@ -38,11 +39,13 @@ public class FunnelFreedUp : MonoBehaviour
     private IEnumerator CoolDownCoroutine()
     {
         _timerCoolDown.SetActive(true);
-        for (int i = _maxCoolDownTime; i > 0; i++)
+        _panelFreedUp.SetActive(false);
+        for (int i = _maxCoolDownTime; i > 0; i--)
         {
             _timertext.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
         _timerCoolDown.SetActive(false);
+        _panelFreedUp.SetActive(true);
     }
 }
