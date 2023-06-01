@@ -50,8 +50,7 @@ public class WorkerAnimation : MonoBehaviour
     {
         if (other.gameObject.layer == 13)
         {
-        transform.DORotate(new Vector3(0, 90, 0), 0.7f);
-            Debug.Log("dsd");
+            transform.DORotate(new Vector3(0, 90, 0), 0.7f);
             _anim.SetTrigger("onStop");
             
         }
