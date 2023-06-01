@@ -6,8 +6,7 @@ using TMPro;
 
 public class WorkerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _workersPrefabs;
-    [SerializeField] private Transform[] _workersPositions;
+    [SerializeField] private GameObject[] _workers;
     [SerializeField] private int[] _workerValue;
     [SerializeField] private ItemsSpawner _itemSpawner;
     [SerializeField] private TMP_Text[] _workersCosts;
@@ -18,7 +17,7 @@ public class WorkerManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < _workersPositions.Length; i++)
+        for (int i = 0; i < _workers.Length; i++)
         {
             _workersCosts[i].text = _workerValue[i].ToString() + "$";
         }
@@ -31,7 +30,7 @@ public class WorkerManager : MonoBehaviour
         if(_storage.Money >= _workerValue[workerNumber])
         {
             _workersCount++;
-            Instantiate(_workersPrefabs[workerNumber], _workersPositions[workerNumber]);
+            _workers[workerNumber].SetActive(true);
             Button workerPanel = _workersCosts[workerNumber].transform.parent.GetComponent<Button>();
             workerPanel.interactable = false;
             _workersCosts[workerNumber].text = "Hired";
