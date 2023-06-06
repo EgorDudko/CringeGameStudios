@@ -28,53 +28,30 @@ public class CameraTransitions : MonoBehaviour
         switch (transition)
         {
             case Transition.PackagingSection:
-                _transitionCoroutine = StartCoroutine(PackagingSectionTransition());
+                _transitionCoroutine = StartCoroutine(TransitionCoroutine(_packagingSectionCameraPosition, -2, 1,4));
                 break;
             case Transition.Cabinet:
-                _transitionCoroutine = StartCoroutine(CabinetTransition());
+                _outline.SetActive(true);
+                _transitionCoroutine = StartCoroutine(TransitionCoroutine(_cabinetCameraPosition, 2, 0,4));
                 break;
             case Transition.Computer:
-                _transitionCoroutine = StartCoroutine(ComputerTransition());
+                _outline.SetActive(false);
+                _transitionCoroutine = StartCoroutine(TransitionCoroutine(_computerCameraPosition, 0, 0,1));
                 break;
         }
     }
 
-    private IEnumerator ComputerTransition()
-    {
-        _outline.SetActive(false);
-        Time.timeScale = 1;
-        Camera.main.nearClipPlane = 0;
-        while (transform.position != _computerCameraPosition.position & transform.rotation != _computerCameraPosition.rotation)
-        {
-            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 1, 0.1f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _computerCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, _computerCameraPosition.position, _TransitionSpeed * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-        Time.timeScale = 0;
-    }
-    private IEnumerator CabinetTransition()
-    {
-        _outline.SetActive(true);
-        Camera.main.nearClipPlane = 2;
-        while (gameObject.transform.position != _cabinetCameraPosition.position & gameObject.transform.rotation != _cabinetCameraPosition.rotation)
-        {
-            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, 4, 0.1f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _cabinetCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, _cabinetCameraPosition.position, _TransitionSpeed * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-        Time.timeScale = 0;
-    }
-    private IEnumerator PackagingSectionTransition()
+    private IEnumerator TransitionCoroutine(Transform destination, float nearClipPlane, float finalTimeScale, float orthographicSize)
     {
         Time.timeScale = 1;
-        Camera.main.nearClipPlane = -2;
-        while (gameObject.transform.position != _packagingSectionCameraPosition.position & transform.rotation != _packagingSectionCameraPosition.rotation)
+        Camera.main.nearClipPlane = nearClipPlane;
+        while (transform.position != destination.position & transform.rotation != destination.rotation)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, _packagingSectionCameraPosition.rotation, _TransitionSpeed * Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, _packagingSectionCameraPosition.position, _TransitionSpeed * Time.deltaTime);
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, orthographicSize, 0.1f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, destination.rotation, _TransitionSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, destination.position, _TransitionSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
+        Time.timeScale = finalTimeScale;
     }
 }

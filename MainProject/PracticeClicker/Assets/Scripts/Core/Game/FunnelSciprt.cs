@@ -8,8 +8,7 @@ public class FunnelSciprt : MonoBehaviour
     [SerializeField] private GameObject _boxSpawner;
     [SerializeField] private BoxDetectorScript _boxDetector;
     [SerializeField] private Storage _storage;
-    
-    private bool _isSpawnCooldown;
+
 
     private void OnTriggerStay(Collider other)
     {

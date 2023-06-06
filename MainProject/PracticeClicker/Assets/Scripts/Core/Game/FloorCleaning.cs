@@ -16,6 +16,5 @@ public class FloorCleaning : MonoBehaviour
     {
         yield return new WaitForSeconds(_cleaningTime);
         Destroy(trash);
-
     }
 }
